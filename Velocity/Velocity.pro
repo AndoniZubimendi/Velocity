@@ -177,3 +177,5 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     Resources.qrc
+
+TRANSLATIONS    = i18n/Velocity_es.ts 
