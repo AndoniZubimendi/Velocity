@@ -29,7 +29,7 @@ class GameAdderDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit GameAdderDialog(StfsPackage *package, QWidget *parent = 0, bool dispose = true);
+    explicit GameAdderDialog(StfsPackage *package, QWidget *parent = 0, bool dispose = true, bool *ok = NULL);
     ~GameAdderDialog();
 
 private slots:
@@ -48,7 +48,7 @@ private slots:
 private:
     Ui::GameAdderDialog *ui;
     QString mainDir;
-    QNetworkAccessManager *manager;
+    QNetworkAccessManager *manager, *imageManager;
     DashboardGPD *dashGPD;
     QString dashGPDTempPath, pecTempPath;
     QStringList notSuccessful;

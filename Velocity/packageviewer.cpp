@@ -65,7 +65,7 @@ PackageViewer::PackageViewer(QStatusBar *statusBar, StfsPackage *package, QList<
             ui->txtDeviceID->setEnabled(false);
         }
 
-        openInMenu = new QMenu;
+        openInMenu = new QMenu(this);
         if (package->metaData->contentType == Profile)
         {
             profileEditor = new QAction("Profile Editor", this);
@@ -344,12 +344,16 @@ void PackageViewer::onOpenInSelected(QAction *action)
     {
         if (action == gameAdder)
         {
-            GameAdderDialog dialog(package, this, false);
-            dialog.exec();
+            bool ok;
+            GameAdderDialog dialog(package, this, false, &ok);
+            if (ok)
+            {
+                dialog.exec();
 
-            ui->treeWidget->clear();
-            listing = package->GetFileListing();
-            PopulateTreeWidget(&listing);
+                ui->treeWidget->clear();
+                listing = package->GetFileListing();
+                PopulateTreeWidget(&listing);
+            }
         }
         else if (action == profileEditor)
         {
