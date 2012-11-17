@@ -243,10 +243,15 @@ private slots:
 
     void onAssetsDoneDownloading();
 
+    void on_tabWidget_currentChanged(int index);
+
+    void onUnlockEverything();
+
 private:
     Ui::ProfileEditor *ui;
     StfsPackage *profile;
     StfsPackage *PEC;
+    QPushButton *unlockEverything;
 
     GPDUploader *uploader;
     DashboardGPD *dashGPD;
@@ -283,6 +288,8 @@ private:
     void showAllGames();
     void showAllAwardGames();
     void saveImage(QPoint p, QLabel *imgLabel);
+    void unlockAllAchievements(int index);
+    void unlockAllAwards(int index);
 };
 
 #endif // PROFILEEDITOR_H
