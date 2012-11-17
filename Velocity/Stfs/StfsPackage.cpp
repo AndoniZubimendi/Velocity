@@ -2097,5 +2097,6 @@ void StfsPackage::GenerateRawFileListing(FileListing *in, QVector<FileEntry> *ou
 StfsPackage::~StfsPackage(void)
 {
     io->close();
+    delete io;
     delete metaData;
 }

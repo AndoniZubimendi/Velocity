@@ -252,6 +252,9 @@ private:
     StfsPackage *profile;
     StfsPackage *PEC;
     QPushButton *unlockEverything;
+    QNetworkAccessManager *gameBoxArtManager;
+    QNetworkAccessManager *awardBoxArtManager;
+    QNetworkAccessManager *awardThumbnailManager;
 
     GPDUploader *uploader;
     DashboardGPD *dashGPD;
