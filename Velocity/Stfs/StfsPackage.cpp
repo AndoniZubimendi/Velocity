@@ -463,6 +463,9 @@ void StfsPackage::ExtractFile(FileEntry *entry, const QString &outPath, void (*e
                 extractProgress(arg, entry->blocksForFile, entry->blocksForFile);
 
             outFile.close();
+
+            // free the temp buffer
+            delete[] buffer;
             return;
         }
         else
@@ -1160,6 +1163,8 @@ void StfsPackage::Resign(const QString &kvPath)
     // write the certficate
     memcpy(metaData->certificate.signature, signature, 0x80);
     metaData->WriteCertificate();
+
+    delete[] dataToSign;
 }
 
 
@@ -1972,6 +1977,8 @@ void StfsPackage::ReplaceFile(const QString &path, FileEntry *entry, const QStri
         fileIn.readBytes(toWrite, remainder);
 
         io->write(toWrite, remainder);
+
+        delete[] toWrite;
     }
 
     // update the progress if needed

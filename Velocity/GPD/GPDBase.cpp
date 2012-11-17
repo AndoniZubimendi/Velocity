@@ -325,10 +325,10 @@ GPDBase::~GPDBase(void)
         delete[] images.at(i).image;
 
     // deallocate all of the setting memory
-    for (DWORD i = 0 ; i < settings.size(); i++)
+    for (DWORD i = 0; i < settings.size(); i++)
     {
         if (settings.at(i).type == Binary)
-            delete settings.at(i).binaryData.data;
+            delete[] settings.at(i).binaryData.data;
         else if (settings.at(i).type == UnicodeString)
             delete settings.at(i).str;
     }

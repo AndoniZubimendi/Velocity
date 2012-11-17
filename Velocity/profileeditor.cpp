@@ -1289,7 +1289,7 @@ void ProfileEditor::on_btnCreateAch_clicked()
         game->CreateAchievement(&entry, (BYTE*)ba.data(), ba.length());
 
         // add the achievement to the UI
-        QTreeWidgetItem *item = new QTreeWidgetItem;
+        QTreeWidgetItem *item = new QTreeWidgetItem(this);
         item->setText(0, QString::fromStdWString(entry.name));
         item->setText(1, "Locked");
         item->setText(2, QString::number(entry.gamerscore));
@@ -1553,7 +1553,7 @@ void ProfileEditor::on_tabWidget_currentChanged(int index)
 
 void ProfileEditor::onUnlockEverything()
 {
-    int btn = QMessageBox::question(this, "Continue?", "Are you sure that you want to unlock all achievements and avatar awards offline?", QMessageBox::Yes, QMessageBox::No);
+    QMessageBox::StandardButton btn = (QMessageBox::StandardButton)QMessageBox::question(this, "Continue?", "Are you sure that you want to unlock all achievements and avatar awards offline?", QMessageBox::Yes, QMessageBox::No);
     if (btn != QMessageBox::Yes)
         return;
 

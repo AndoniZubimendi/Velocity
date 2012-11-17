@@ -13,6 +13,8 @@ ThemeCreationWizard::ThemeCreationWizard(QStatusBar *statusBar, QWidget *parent)
     ui->label_5->setText("<font size=3>" + ui->label_5->text() + "</font>");
     ui->label_7->setText("<font size=3>" + ui->label_7->text() + "</font>");
     ui->lblSavePath->setText("<font size=3>" + ui->lblSavePath->text() + "</font>");
+#elif __WIN32
+    ui->label_3->setFont(QFont("MS Shell Dlg 2", 10));
 #endif
 
     // populate the sphere color combobox
@@ -181,6 +183,12 @@ void ThemeCreationWizard::openWallpaper(QLabel *imageViewer, QImage *saveImage)
         return;
 
     QPixmap *thumbnail = new QPixmap(fileName);
+    if (thumbnail->isNull())
+    {
+        QMessageBox::warning(this, "Invalid Image", "The requested image could not be loaded successfully.");
+        return;
+    }
+
     *saveImage = QImage(fileName);
     allocatedImages.push_back(thumbnail);
 

@@ -42,10 +42,10 @@ StrbDialog::StrbDialog(AvatarAsset *asset, QWidget *parent) : QDialog(parent), u
     const QVector<STRBBlock> blocks = asset->GetBlocks();
     for (int i = 0; i < blocks.size(); i++)
     {
-        QTreeWidgetItem *item = new QTreeWidgetItem;
-        item->setText(0, AssetHelpers::BlockIDToString(blocks.at(i).id));
-        item->setText(1, "0x" + QString::number(blocks.at(i).dataAddress, 16).toUpper());
-        item->setText(2, "0x" + QString::number(blocks.at(i).dataLength, 16).toUpper());
+        QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
+        item->setText(0, AssetHelpers::BlockIDToString(asset->blocks.at(i).id));
+        item->setText(1, "0x" + QString::number(asset->blocks.at(i).dataAddress, 16).toUpper());
+        item->setText(2, "0x" + QString::number(asset->blocks.at(i).dataLength, 16).toUpper());
 
         ui->treeWidget->insertTopLevelItem(ui->treeWidget->topLevelItemCount(), item);
     }
