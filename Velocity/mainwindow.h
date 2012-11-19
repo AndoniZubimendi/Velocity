@@ -108,10 +108,12 @@ private slots:
 
     void versionReplyFinished(QNetworkReply *aReply);
 
+    void pluginVersionReplyFinished(QNetworkReply *aReply);
+
 private:
     Ui::MainWindow *ui;
     QSettings *settings;
-    QNetworkAccessManager *manager;
+    QNetworkAccessManager *manager, *pluginManager;
     QList<QAction*> gpdActions, gameActions;
 
     void LoadFiles(QList<QUrl> &filePaths);

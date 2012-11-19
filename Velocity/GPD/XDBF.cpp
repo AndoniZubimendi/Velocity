@@ -880,7 +880,9 @@ void XDBF::DeleteEntry(XDBFEntry entry)
             writeSyncs:
                 writeSyncList(&group->syncs);
                 break;
-
+        case Image:
+        case String:
+            break;
         default:
             throw QString("XDBF: Error deleting entry. Invalid entry type.\n");
     }
