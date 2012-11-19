@@ -1289,7 +1289,7 @@ void ProfileEditor::on_btnCreateAch_clicked()
         game->CreateAchievement(&entry, (BYTE*)ba.data(), ba.length());
 
         // add the achievement to the UI
-        QTreeWidgetItem *item = new QTreeWidgetItem(this);
+        QTreeWidgetItem *item = new QTreeWidgetItem(ui->achievementsList);
         item->setText(0, QString::fromStdWString(entry.name));
         item->setText(1, "Locked");
         item->setText(2, QString::number(entry.gamerscore));
@@ -1564,7 +1564,7 @@ void ProfileEditor::onUnlockEverything()
     DWORD totalGamerscore = 0;
 
     // unlock all achievements
-    for (DWORD i = 0; i < ui->gamesList->topLevelItemCount(); i++)
+    for (int i = 0; i < ui->gamesList->topLevelItemCount(); i++)
     {
         unlockAllAchievements(i);
         totalGamerscore += games.at(i).titleEntry->totalGamerscore;
@@ -1584,7 +1584,7 @@ void ProfileEditor::onUnlockEverything()
     ui->lblGamerscore->setText(QString::number(totalGamerscore) + "G");
 
     // unlock all awards
-    for (DWORD i = 0; i < ui->aaGamelist->topLevelItemCount(); i++)
+    for (int i = 0; i < ui->aaGamelist->topLevelItemCount(); i++)
     {
         unlockAllAwards(i);
 
