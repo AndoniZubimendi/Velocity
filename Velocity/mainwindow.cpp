@@ -10,11 +10,14 @@ MainWindow::MainWindow(QList<QUrl> arguments, QWidget *parent) : QMainWindow(par
     if (!settings->contains("ProfileDropAction"))
         settings->setValue("ProfileDropAction", 0);
     if (!settings->contains("PluginPath"))
+#ifdef __APPLE__
+        settings->setValue("PluginPath", "Velocity.app/plugins");
+#else
         settings->setValue("PluginPath", "./plugins");
+#endif
     if (!settings->contains("AnonData"))
         settings->setValue("AnonData", true);
 
-    LoadAllPlugins();
     setCentralWidget(ui->mdiArea);
     ui->mdiArea->setAcceptDrops(false);
     setAcceptDrops(true);
@@ -42,6 +45,8 @@ MainWindow::MainWindow(QList<QUrl> arguments, QWidget *parent) : QMainWindow(par
     }
     else
         ui->statusBar->showMessage("Welcome to Velocity!", 10000);
+
+    LoadAllPlugins();
 
     GitHubCommitsDialog *dialog = new GitHubCommitsDialog(this);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
@@ -86,6 +91,7 @@ void MainWindow::LoadPlugin(QString filename, bool addToMenu, StfsPackage *packa
                 // set data
                 action->setIcon(game->GetDialog()->windowIcon());
                 action->setData(QVariant(filename));
+                action->setProperty("titleid", QVariant((unsigned int)game->TitleID()));
 
                 // connect it
                 connect(action, SIGNAL(triggered()), this, SLOT(on_actionModder_triggered()));
@@ -97,43 +103,55 @@ void MainWindow::LoadPlugin(QString filename, bool addToMenu, StfsPackage *packa
             }
             else
             {
+                pluginManager->setProperty("name", game->ToolName());
+                pluginManager->setProperty("version", game->Version());
+                pluginManager->get(QNetworkRequest(QUrl("http://velocity.expetelek.com/plugin.php?tid=" + QString::number(game->TitleID(), 16) + "&type=0")));
+
                 // get the dialog, and connect signals/slots
-                QDialog *widget = game->GetDialog();
+                QDialog *widget = (QDialog*)game->GetDialog();
                 connect(widget, SIGNAL(PluginFinished()), this, SLOT(PluginFinished()));
 
-                if (package == NULL)
+                try
                 {
-                    QString fileName = QFileDialog::getOpenFileName(this, tr("Open a Save Game"), QDesktopServices::storageLocation(QDesktopServices::DesktopLocation), "All Files (*)");
-                    if (fileName.isNull())
-                        return;
-
-                    try
+                    if (!fromPackageViewer)
                     {
+                        QString fileName = QFileDialog::getOpenFileName(this, tr("Open a Save Game"), QDesktopServices::storageLocation(QDesktopServices::DesktopLocation), "All Files (*)");
+                        if (fileName.isNull())
+                            return;
+
+
                         package = new StfsPackage(fileName.toStdString());
                     }
-                    catch (string error)
+
+                    if (package->metaData->contentType != SavedGame)
                     {
-                        QMessageBox::critical(this, "Opening Error", "Could not open save game package.\n\n" + QString::fromStdString(error));
+                        QMessageBox::critical(this, "Invalid Package", "The selected package is not a 'Saved Game' file.");
                         return;
                     }
-                    catch (...)
+
+                    Arguments *args = new Arguments;
+                    args->package = package;
+                    args->fromPackageViewer = fromPackageViewer;
+
+                    bool ok;
+                    game->LoadPackage(package, &ok, (void*)args);
+
+                    if (ok)
                     {
-                        QMessageBox::critical(this, "Opening Error", "Could not open save game package for an unknown reason.");
-                        return;
+                        widget->exec();
+                        widget->close();
+                        qDebug() << loader.unload();
                     }
                 }
-
-                Arguments *args = new Arguments;
-                args->package = package;
-
-                bool ok;
-                game->LoadPackage(package, &ok, args);
-
-                if (ok)
+                catch (string error)
                 {
-                    widget->exec();
-                    widget->close();
-                    qDebug() << loader.unload();
+                    QMessageBox::critical(this, "Opening Error", "Could not open save game package.\n\n" + QString::fromStdString(error));
+                    return;
+                }
+                catch (...)
+                {
+                    QMessageBox::critical(this, "Opening Error", "Could not open save game package for an unknown reason.");
+                    return;
                 }
             }
         }
@@ -166,7 +184,7 @@ void MainWindow::LoadPlugin(QString filename, bool addToMenu, StfsPackage *packa
                 pluginManager->get(QNetworkRequest(QUrl("http://velocity.expetelek.com/plugin.php?tid=" + QString::number(gpd->TitleID(), 16) + "&type=0")));
 
                 // get the dialog, and connect signals/slots
-                QDialog *widget = gpd->GetDialog();
+                QDialog *widget = (QDialog*)gpd->GetDialog();
                 connect(widget, SIGNAL(PluginFinished()), this, SLOT(PluginFinished()));
 
                 try
@@ -365,7 +383,7 @@ void MainWindow::LoadFiles(QList<QUrl> &filePaths)
                     {
                         if (settings->value("PackageDropAction").toInt() == OpenInPackageViewer)
                         {
-                            PackageViewer *viewer = new PackageViewer(ui->statusBar, package, gpdActions, this);
+                            PackageViewer *viewer = new PackageViewer(ui->statusBar, package, gpdActions, gameActions, this);
                             viewer->setAttribute(Qt::WA_DeleteOnClose);
                             ui->mdiArea->addSubWindow(viewer);
                             viewer->show();
@@ -386,7 +404,7 @@ void MainWindow::LoadFiles(QList<QUrl> &filePaths)
                     {
                         if (settings->value("ProfileDropAction").toInt() == OpenInPackageViewer)
                         {
-                            PackageViewer *viewer = new PackageViewer(ui->statusBar, package, gpdActions, this);
+                            PackageViewer *viewer = new PackageViewer(ui->statusBar, package, gpdActions, gameActions, this);
                             viewer->setAttribute(Qt::WA_DeleteOnClose);
                             ui->mdiArea->addSubWindow(viewer);
                             viewer->show();
@@ -497,7 +515,7 @@ void MainWindow::on_actionPackage_triggered()
     try
     {
         StfsPackage *package = new StfsPackage(fileName.toStdString());
-        PackageViewer *viewer = new PackageViewer(ui->statusBar, package, gpdActions, this);
+        PackageViewer *viewer = new PackageViewer(ui->statusBar, package, gpdActions, gameActions, this);
         viewer->setAttribute(Qt::WA_DeleteOnClose);
         ui->mdiArea->addSubWindow(viewer);
         viewer->show();
@@ -567,7 +585,7 @@ void MainWindow::on_actionCreate_Package_triggered()
     {
         StfsPackage *package = new StfsPackage(packagePath.toStdString());
 
-        PackageViewer *viewer = new PackageViewer(ui->statusBar, package, gpdActions, this);
+        PackageViewer *viewer = new PackageViewer(ui->statusBar, package, gpdActions, gameActions, this);
         viewer->setAttribute(Qt::WA_DeleteOnClose);
         ui->mdiArea->addSubWindow(viewer);
         viewer->show();
