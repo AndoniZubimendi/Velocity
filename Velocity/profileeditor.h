@@ -32,6 +32,7 @@
 #include "gpduploader.h"
 #include "achievementcreationwizard.h"
 #include "AvatarAssetDownloader.h"
+#include "MemoryStream.h"
 
 namespace Ui {
 class ProfileEditor;
