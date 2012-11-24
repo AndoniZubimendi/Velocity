@@ -623,7 +623,7 @@ void MainWindow::on_actionGame_Adder_triggered()
     StfsPackage *package = new StfsPackage(fileName.toStdString());
 
     bool ok;
-    GameAdderDialog dialog(package, this, true, &ok);
+    GameAdderDialog dialog(package, this, false, &ok);
     if (ok)
         dialog.exec();
 
@@ -697,7 +697,7 @@ void MainWindow::versionReplyFinished(QNetworkReply *aReply)
     QString version = result["version"].toString();
     QString downloadPage = result["dl_page"].toString();
 
-    if (VERSION != version)
+    if (!version.contains(VERSION))
     {
         QMessageBox::StandardButton selection = (QMessageBox::StandardButton)QMessageBox::question(this, "Version " + version, "Version " + version + " of Velocity is available for download. Would you like to be brought to the download page?", QMessageBox::Yes, QMessageBox::No);
         if (selection == QMessageBox::Yes)

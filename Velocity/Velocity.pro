@@ -12,7 +12,7 @@ mac | win32 {
 
 TARGET = Velocity
 TEMPLATE = app
-VERSION = 0.0.0.1
+VERSION = 0.0.0.2
 DEFINES += VERSION=\\\"$$VERSION\\\"
 
 win32 {
@@ -33,8 +33,6 @@ unix:!mac {
     INCLUDEPATH += "/usr/local/include/botan-1.10"
     LIBS += "/usr/local/lib/libbotan-1.10.a"
 }
-
-VERSION = 1.0.0
 
 UI_DIR = ../Velocity
 
