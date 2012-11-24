@@ -66,7 +66,7 @@ std::wstring GPDBase::readStringEntry(XDBFEntry entry)
     io->setPosition(xdbf->GetRealAddress(entry.addressSpecifier));
 
     // read the string
-    return io->readWString();
+    return io->readWString(entry.length / 2);
 }
 
 SettingEntry GPDBase::readSettingEntry(XDBFEntry entry)
