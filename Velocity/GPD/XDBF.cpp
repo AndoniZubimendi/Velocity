@@ -92,6 +92,11 @@ void XDBF::Clean()
     strings.clear();
     avatarAwards.entries.clear();
 
+    // clear the free memory
+    freeMemory.clear();
+    XDBFFreeMemEntry  entry = { 0, 0xFFFFFFFF };
+    freeMemory.push_back(entry);
+
     // reload the file listing
     readEntryTable();
 }
@@ -272,7 +277,6 @@ SyncList XDBF::readSyncList(XDBFEntry entry)
 
 void XDBF::writeSyncList(SyncList *syncs)
 {
-
     // if the length has changed, then we need to allocated more/less memory
     if (syncs->lengthChanged)
     {
@@ -284,6 +288,7 @@ void XDBF::writeSyncList(SyncList *syncs)
 
         // allocate new memory
         syncs->entry.addressSpecifier = GetSpecifier(AllocateMemory(syncs->entry.length));
+        syncs->lengthChanged = false;
     }
 
     // seek to the sync list position
@@ -406,6 +411,7 @@ XDBFEntry XDBF::CreateEntry(EntryType type, UINT64 id, DWORD size)
             // create a sync for the entry
             SyncEntry sync = { entry.id, settings.syncData.nextSyncID++ };
             settings.syncs.toSync.push_back(sync);
+            settings.syncs.lengthChanged = true;
             // re-write the sync list
             writeSyncList(&settings.syncs);
             writeSyncData(&settings.syncData);
@@ -418,6 +424,7 @@ XDBFEntry XDBF::CreateEntry(EntryType type, UINT64 id, DWORD size)
             // create a sync for the entry
             SyncEntry sync = { entry.id, titlesPlayed.syncData.nextSyncID++ };
             titlesPlayed.syncs.toSync.push_back(sync);
+            titlesPlayed.syncs.lengthChanged = true;
             // re-write the sync list
             writeSyncList(&titlesPlayed.syncs);
             writeSyncData(&titlesPlayed.syncData);
@@ -433,6 +440,7 @@ XDBFEntry XDBF::CreateEntry(EntryType type, UINT64 id, DWORD size)
             // create a sync for the entry
             SyncEntry sync = { entry.id, avatarAwards.syncData.nextSyncID++ };
             avatarAwards.syncs.toSync.push_back(sync);
+            avatarAwards.syncs.lengthChanged = true;
             // re-write the sync list
             writeSyncList(&avatarAwards.syncs);
             writeSyncData(&avatarAwards.syncData);
@@ -610,6 +618,10 @@ void XDBF::writeFreeMemTable()
 
     // seek to the free memory table position
     io->setPosition(0x18 + (header.entryTableLength * 0x12));
+
+    // make sure we didn't run out of free memory table space
+    if (freeMemory.size() > header.freeMemTableLength)
+        Clean();
 
     // write the table
     for (int i = 0; i < freeMemory.size(); i++)
