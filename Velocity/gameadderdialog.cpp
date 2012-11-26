@@ -8,6 +8,8 @@ GameAdderDialog::GameAdderDialog(StfsPackage *package, QWidget *parent, bool dis
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     ui->setupUi(this);
 
+    warned = false;
+
     QFont f = ui->lblGameName->font();
 #ifdef __WIN32
     f.setPointSize(10);
@@ -36,7 +38,6 @@ GameAdderDialog::GameAdderDialog(StfsPackage *package, QWidget *parent, bool dis
     }
 
     pecTempPath = QDir::tempPath() + "/" + QUuid::createUuid().toString().replace("{", "").replace("}", "").replace("-", "");
-    mainDir = "http://velocity.expetelek.com/gameadder/";
 
     manager = new QNetworkAccessManager(this);
 
@@ -49,7 +50,8 @@ GameAdderDialog::GameAdderDialog(StfsPackage *package, QWidget *parent, bool dis
     }
 
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(gameReplyFinished(QNetworkReply*)));
-    manager->get(QNetworkRequest(QUrl(mainDir + "listing.php")));
+    getParams = "";
+    getListing();
 
     // setup the context menus
     ui->treeWidgetAllGames->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -144,6 +146,8 @@ void GameAdderDialog::gameReplyFinished(QNetworkReply *aReply)
 
     // sort the items alphabetically
     ui->treeWidgetAllGames->sortByColumn(0, Qt::AscendingOrder);
+
+    ui->tabWidget->setEnabled(true);
 }
 
 void GameAdderDialog::thumbnailReplyFinished(QNetworkReply *aReply)
@@ -297,6 +301,29 @@ void GameAdderDialog::finishedDownloadingGPD(QString gamePath, QString awardPath
 
             QMessageBox::warning(this, "Warning", "Not all games could be added successfully! The following game(s) failed:\n" + games);
         }
+
+        // make sure that all of the games were added correctly
+        bool problems = false;
+        for (DWORD i = 0; i < ui->treeWidgetQueue->topLevelItemCount(); i++)
+        {
+            TitleEntry entry = ui->treeWidgetQueue->topLevelItem(i)->data(0, Qt::UserRole).value<TitleEntry>();
+            if (!package->FileExists(QString::number(entry.titleID, 16).toUpper().toStdString() + ".gpd"))
+            {
+                dashGPD->DeleteTitleEntry(&entry);
+                if (!pecPackage->FileExists(QString::number(entry.titleID, 16).toUpper().toStdString() + ".gpd"))
+                    pecPackage->RemoveFile(QString::number(entry.titleID, 16).toUpper().toStdString() + ".gpd");
+                problems = true;
+            }
+            if (entry.avatarAwardCount != 0 && !pecPackage->FileExists(QString::number(entry.titleID, 16).toUpper().toStdString() + ".gpd"))
+            {
+                try { dashGPD->DeleteTitleEntry(&entry); }
+                catch(...) { }
+                problems = true;
+            }
+        }
+
+        if (problems)
+            QMessageBox::warning(this, "Error Adding Games", "Some of the games weren't added correctly.");
 
         try
         {
@@ -516,6 +543,14 @@ void GameAdderDialog::showAllItems()
         ui->treeWidgetAllGames->topLevelItem(i)->setHidden(false);
 }
 
+void GameAdderDialog::getListing()
+{
+    ui->treeWidgetAllGames->clear();
+    ui->treeWidgetQueue->clear();
+    ui->tabWidget->setEnabled(false);
+    manager->get(QNetworkRequest(QUrl("http://velocity.expetelek.com/gameadder/listing.php" + getParams)));
+}
+
 void GameAdderDialog::on_btnShowAll_clicked()
 {
     ui->txtSearch->setText("");
@@ -564,4 +599,31 @@ void GameAdderDialog::on_btnShowAll_2_clicked(bool checked)
         if (entry.avatarAwardCount == 0)
             ui->treeWidgetAllGames->topLevelItem(i)->setHidden(checked);
     }
+}
+
+void GameAdderDialog::on_pushButton_3_clicked()
+{
+    bool developerMode = ui->pushButton_3->isChecked();
+    if (developerMode)
+    {
+        if (!warned)
+        {
+            warned = true;
+            QMessageBox::StandardButton selection = (QMessageBox::StandardButton)QMessageBox::warning(this, "Developer Mode?", "Developer mode will display games that have not yet been approved by the Velocity developers. With this said, these games could potentially corrupt your profile. Would you like to continue?", QMessageBox::Yes, QMessageBox::No);
+            if (selection == QMessageBox::No)
+            {
+                ui->pushButton_3->setChecked(false);
+                getParams = "";
+                return;
+            }
+            else
+                getParams = "?dev=1";
+        }
+        else
+            getParams = "?dev=1";
+    }
+    else
+        getParams = "";
+
+    getListing();
 }
