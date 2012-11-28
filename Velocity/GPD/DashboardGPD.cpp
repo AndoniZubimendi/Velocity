@@ -214,8 +214,8 @@ void DashboardGPD::DeleteTitleEntry(TitleEntry *entry)
 			break;
 		}
 	}
-	if (i == gamesPlayed.size())
-        throw QString("GPD: Error deleting title entry. Title doesn't exist.\n");
+    if (i > gamesPlayed.size())
+		throw QString("GPD: Error deleting title entry. Title doesn't exist.\n");
 
 	// delete the entry from the file
 	xdbf->DeleteEntry(entry->entry);
