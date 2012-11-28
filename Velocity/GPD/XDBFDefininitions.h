@@ -23,7 +23,7 @@ struct XDBFHeader
 	DWORD version;
 	DWORD entryTableLength;
 	DWORD entryCount;
-	DWORD freeMemTableLength;
+    int freeMemTableLength;
 	DWORD freeMemTableEntryCount;
 };
 

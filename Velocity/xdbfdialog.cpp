@@ -235,7 +235,7 @@ Entry XdbfDialog::indexToEntry(int index)
 {
     Entry toReturn;
 
-    DWORD count = 0;
+    int count = 0;
     if (index < (count += gpd->xdbf->achievements.entries.size()))
     {
         toReturn.index = index;

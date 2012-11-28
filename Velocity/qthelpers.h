@@ -40,7 +40,9 @@ public:
 
     static DWORD ParseHexString(QString string);
 
-    static void ParseHexStringBuffer(QString bytes, BYTE *outBuffer, DWORD len);
+    static BYTE ParseHexDigit(QString string);
+
+    static void ParseHexStringBuffer(QString bytes, BYTE *outBuffer, int len);
 
     static QString DesktopLocation();
 
@@ -57,6 +59,7 @@ public:
     static QString ExecutingDirectory();
 
     static void GenAdjustWidgetAppearanceToOS(QWidget *rootWidget);
+
 };
 
 #endif // QTHELPERS_H

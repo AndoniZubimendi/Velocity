@@ -18,20 +18,27 @@ QString QtHelpers::ByteArrayToString(BYTE *buffer, DWORD len, bool spacesBetween
     }
 }
 
+BYTE QtHelpers::ParseHexDigit(QString string)
+{
+    string.replace("0x", "");
+    return string.toUInt(0, 16);
+}
+
+
 DWORD QtHelpers::ParseHexString(QString string)
 {
     string.replace("0x", "");
     return string.toULong(0, 16);
 }
 
-void QtHelpers::ParseHexStringBuffer(QString bytes, BYTE *outBuffer, DWORD len)
+void QtHelpers::ParseHexStringBuffer(QString bytes, BYTE *outBuffer, int len)
 {
     bytes = bytes.trimmed().replace(" ", "");
 
     if (len != (bytes.length() / 2))
         throw QString("QT: Error converting hex string to byte array, length mismatch.\n");
 
-    for (DWORD i = 0; i < len; i++)
+    for (int i = 0; i < len; i++)
     {
         QString temp = bytes.mid(i * 2, 2);
         outBuffer[i] = temp.toInt(0, 16);
