@@ -359,6 +359,9 @@ void GameAdderDialog::finishedDownloadingGPD(QString gamePath, QString awardPath
 
         try
         {
+            dashGPD->Close();
+            delete dashGPD;
+
             m.lock();
             dashGPD->WriteSettingEntry(dashGPD->gamePlayedCount);
             m.unlock();
@@ -375,6 +378,7 @@ void GameAdderDialog::finishedDownloadingGPD(QString gamePath, QString awardPath
             m.lock();
             package->ReplaceFile(dashGPDTempPath, "FFFE07D1.gpd");
             m.unlock();
+
             QFile::remove(dashGPDTempPath);
         }
         catch (const QString &error)
