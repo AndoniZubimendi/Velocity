@@ -81,12 +81,13 @@ SOURCES += main.cpp \
     titleidfinder.cpp \
     titleidfinderdialog.cpp \
     gamerpicturepackdialog.cpp \
-	preferencesdialog.cpp \
+    preferencesdialog.cpp \
     json.cpp \
-	githubcommitsdialog.cpp \
-	gpduploader.cpp \
+    githubcommitsdialog.cpp \
+    gpduploader.cpp \
     fatxpathgendialog.cpp \
-    MemoryStream.cpp
+    MemoryStream.cpp \
+    profilecleanerwizard.cpp
 
 HEADERS  += mainwindow.h \
     packageviewer.h \
@@ -141,12 +142,13 @@ HEADERS  += mainwindow.h \
     gamerpicturepackdialog.h \
     PluginInterfaces/igamemodder.h \
     PluginInterfaces/igpdmodder.h \
-	preferencesdialog.h \
+    preferencesdialog.h \
     json.h \
-	githubcommitsdialog.h \
-	gpduploader.h \
+    githubcommitsdialog.h \
+    gpduploader.h \
     fatxpathgendialog.h \
-    MemoryStream.h
+    MemoryStream.h \
+    profilecleanerwizard.h
 
 FORMS    += mainwindow.ui \
     packageviewer.ui \
@@ -172,10 +174,11 @@ FORMS    += mainwindow.ui \
     themecreationwizard.ui \
     gameadderdialog.ui \
     titleidfinderdialog.ui \
-	gamerpicturepackdialog.ui \
-	preferencesdialog.ui \
+    gamerpicturepackdialog.ui \
+    preferencesdialog.ui \
     githubcommitsdialog.ui \
-    fatxpathgendialog.ui
+    fatxpathgendialog.ui \
+    profilecleanerwizard.ui
 
 RESOURCES += \
     Resources.qrc
