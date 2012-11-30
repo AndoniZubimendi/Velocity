@@ -248,6 +248,8 @@ private slots:
 
     void onUnlockEverything();
 
+    void on_cmbxConsoleType_currentIndexChanged(int index);
+
 private:
     Ui::ProfileEditor *ui;
     StfsPackage *profile;
