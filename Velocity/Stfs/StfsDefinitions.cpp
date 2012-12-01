@@ -42,15 +42,15 @@ QString LicenseTypeToString(LicenseType type)
         case WindowsProfileLicense:
             return QString("WindowsProfileLicense");
         case ConsoleLicense:
-            return QString("ConsoleLicense");
-        case Unknown1:
-            return QString("Unknown1");
-        case Unknown2:
-            return QString("Unknown2");
-        case Unknown3:
-            return QString("Unknown3");
-        case Unknown4:
-            return QString("Unknown4");
+            return string("ConsoleLicense");
+        case MediaFlags:
+            return QString("MediaFlags");
+        case KeyVaultPrivileges:
+            return QString("KeyVaultPrivileges");
+        case HyperVisorFlags:
+            return QString("HyperVisorFlags");
+        case UserPrivileges:
+            return QString("UserPrivileges");
         default:
             throw QString("STFS: Invalid 'License Type' value.\n");
     }
