@@ -42,7 +42,7 @@ QString LicenseTypeToString(LicenseType type)
         case WindowsProfileLicense:
             return QString("WindowsProfileLicense");
         case ConsoleLicense:
-            return string("ConsoleLicense");
+            return QString("ConsoleLicense");
         case MediaFlags:
             return QString("MediaFlags");
         case KeyVaultPrivileges:
