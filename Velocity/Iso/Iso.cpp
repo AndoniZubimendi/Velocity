@@ -31,6 +31,10 @@ QByteArray Iso::getBlocks(DWORD n, int size)  {
     return getRawBlocks(n + type, size);
 }
 
+const IsoFileListing &Iso::getFileListing() const {
+    return fileListing;
+}
+
 int Iso::convertToLittleEndianWord(const QByteArray &a) {
     unsigned char a0 = a[0];
     unsigned char a1 = a[1];
@@ -52,10 +56,15 @@ DWORD Iso::convertSizeToBlockSize(INT64 size) {
 }
 
 bool Iso::parseRootDirectory() {
-    return parseDirectory("", rootSector, rootSize);
+    fileListing.fileEntries.clear();
+    fileListing.folderEntries.clear();
+    fileListing.folder.name = "";
+    fileListing.folder.startingSectorNum = rootSector;
+    fileListing.folder.fileSize = rootSize;
+    return parseDirectory("", rootSector, rootSize, fileListing);
 }
 
-bool Iso::parseDirectory(const QString &dirPath, DWORD block, DWORD size) {
+bool Iso::parseDirectory(const QString &dirPath, DWORD block, DWORD size, IsoFileListing &fileListing) {
     if (size == 0)
         return true;
 
@@ -64,7 +73,7 @@ bool Iso::parseDirectory(const QString &dirPath, DWORD block, DWORD size) {
     //std::cout << "New directory - Size is " << size << " - Total blocks: " << totalBlocks << std::endl;
     QByteArray blockData = getBlocks(block, totalBlocks);
 
-    return parseDirectoryEntries(dirPath, blockData, 0);
+    return parseDirectoryEntries(dirPath, blockData, 0, fileListing);
 }
 
 // 0 -> left word
@@ -76,7 +85,7 @@ bool Iso::parseDirectory(const QString &dirPath, DWORD block, DWORD size) {
 // e -> entry name
 // PADDING = 4 - (14 + name length) % 4
 
-bool Iso::parseDirectoryEntries(const QString &dirPath, const QByteArray &blockData, int offset) {
+bool Iso::parseDirectoryEntries(const QString &dirPath, const QByteArray &blockData, int offset, IsoFileListing &fileListing) {
 
     if (offset > blockData.size())
         return false;
@@ -88,7 +97,7 @@ bool Iso::parseDirectoryEntries(const QString &dirPath, const QByteArray &blockD
         return true;
 
     if (leftTree) {
-        parseDirectoryEntries(dirPath, blockData, leftTree * 4);
+        parseDirectoryEntries(dirPath, blockData, leftTree * 4, fileListing);
     }
 
     int entrySector = convertToLittleEndianInt(blockData.mid(offset + 4, 4));
@@ -109,14 +118,26 @@ bool Iso::parseDirectoryEntries(const QString &dirPath, const QByteArray &blockD
     if (entryAttribs & 0x10) {
         //std::cout << " - Directorio: " << entryName.toStdString() << std::endl;
         if (entryContentSize) {
-            parseDirectory(dirPath + "/" + entryName, entrySector, entryContentSize);
+            IsoFileListing de;
+            de.folder.name = entryName;
+            de.folder.startingSectorNum = entrySector;
+            de.folder.fileSize = entryContentSize;
+            parseDirectory(dirPath + "/" + entryName, entrySector, entryContentSize, de);
+            fileListing.folderEntries.push_back(de);
         }
     } else {
-        std::cout << (dirPath + "/" + entryName).toStdString() << " (" <<  entryContentSize << " bytes)" << std::endl;
+        IsoFileEntry fe;
+
+        fe.fileSize = entryContentSize;
+        fe.name = entryName;
+        fe.startingSectorNum = entrySector;
+
+        fileListing.fileEntries.push_back(fe);
+        //std::cout << (dirPath + "/" + entryName).toStdString() << " (" <<  entryContentSize << " bytes)" << std::endl;
     }
 
     if (rightTree)
-        parseDirectoryEntries(dirPath, blockData, rightTree * 4);
+        parseDirectoryEntries(dirPath, blockData, rightTree * 4, fileListing);
 
     return true;
 }

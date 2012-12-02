@@ -6,6 +6,21 @@
 #include "../winnames.h"
 #include "../FileIO.h"
 
+#include <QVector>
+
+struct IsoFileEntry
+{
+    QString name;
+    DWORD startingSectorNum;
+    INT64 fileSize;
+};
+
+struct IsoFileListing
+{
+    QVector<IsoFileEntry> fileEntries;
+    QVector<IsoFileListing> folderEntries;
+    IsoFileEntry folder;
+};
 
 class Iso {
 
@@ -23,6 +38,8 @@ public:
     QByteArray getRawBlocks(DWORD n, int size = 1);
     QByteArray getBlocks(DWORD n, int size = 1);
 
+    const IsoFileListing &getFileListing() const;
+
 protected:
 
     int convertToLittleEndianInt(const QByteArray &a);
@@ -30,8 +47,8 @@ protected:
     int convertToLittleEndianWord(const QByteArray &a);
 
     bool parseRootDirectory();
-    bool parseDirectory(const QString &dirPath, DWORD sector, DWORD size);
-    bool parseDirectoryEntries(const QString &dirPath, const QByteArray &blockData, int offset);
+    bool parseDirectory(const QString &dirPath, DWORD sector, DWORD size, IsoFileListing &fileListing);
+    bool parseDirectoryEntries(const QString &dirPath, const QByteArray &blockData, int offset, IsoFileListing &fileListing);
     bool readVolumeDescriptor();
     bool verifyImage();
 
@@ -41,4 +58,6 @@ protected:
     const INT64 blockSize;
     DWORD rootSize;
     DWORD rootSector;
+
+    struct IsoFileListing fileListing;
 };
