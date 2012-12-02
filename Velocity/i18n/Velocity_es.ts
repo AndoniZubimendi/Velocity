@@ -359,174 +359,178 @@ p, li { white-space: pre-wrap; }
     <name>CreationWizard</name>
     <message>
         <location filename="../creationwizard.ui" line="20"/>
+        <location filename="../creationwizard.ui" line="33"/>
         <source>Package Creation Wizard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="36"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Package Creation Wizard&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../creationwizard.ui" line="71"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;arial&apos;; font-size:10pt; color:#222222; background-color:#ffffff;&quot;&gt;    Welcome to Velocity&apos;s package creation wizard! Here you will be guided through a series of pages where you will select various options which your package will depend on. The file format of the package will be STFS, which is used on the Xbox360.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../creationwizard.ui" line="114"/>
+        <location filename="../creationwizard.ui" line="112"/>
         <source>Console Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="117"/>
+        <location filename="../creationwizard.ui" line="115"/>
         <source>Choose the type of console the package will be for</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="195"/>
-        <source>Retail</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../creationwizard.ui" line="200"/>
-        <source>Development Kit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../creationwizard.ui" line="210"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Only choose development kit if you&apos;re playing on an official XDK or if you&apos;re running the dev kernel.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../creationwizard.ui" line="242"/>
+        <location filename="../creationwizard.ui" line="239"/>
         <source>Magic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="245"/>
+        <location filename="../creationwizard.ui" line="242"/>
         <source>The type of STFS package.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="318"/>
-        <source>CON</source>
+        <location filename="../creationwizard.ui" line="36"/>
+        <source>Welcome!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="323"/>
-        <source>LIVE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../creationwizard.ui" line="328"/>
-        <source>PIRS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../creationwizard.ui" line="338"/>
+        <location filename="../creationwizard.ui" line="69"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:arial; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot;  font-family:arial;font-size:10pt;&quot;&gt;CON packages are console signed packages which means that they can be edited for use on a retail Xbox360 console. These types of packages are typically used to store profiles, savegames and other offline content.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Welcome to Velocity&apos;s package creation wizard! Here you will be guided through a series of pages where you will select various options which your package will depend on. The file format of the package will be STFS, which is used on the Xbox360.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="370"/>
+        <location filename="../creationwizard.ui" line="178"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:10pt; font-weight:600;&quot;&gt;Retail&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:8pt;&quot;&gt;Any console that can/did connect to Xbox LIVE. This includes banned consoles as well as JTAGs and RGHs. Not sure? Then choose this option.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../creationwizard.ui" line="204"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:10pt; font-weight:600;&quot;&gt;Development Kit&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:8pt;&quot;&gt;Any official XDK or an RGH that is running the dev kernel. These consoles cannot connect to Xbox LIVE.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../creationwizard.ui" line="305"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;CON&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Packages signed by the console meaning that they can be edited for use on any console. These packages are used to store local files such as savegames and profiles.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../creationwizard.ui" line="331"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;LIVE&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Packages signed by Microsoft meaning that they cannot be edited for use on a retail console. These packages are used to store marketplace content such as game add-ons and avatar items.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../creationwizard.ui" line="357"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;PIRS&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Packages signed by Microsoft meaning that they cannot be edited for use on a retail console. These packages are used for on disc content such as nxe art.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../creationwizard.ui" line="392"/>
         <source>Content Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="373"/>
+        <location filename="../creationwizard.ui" line="395"/>
         <source>The type of content stored inside the package.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="415"/>
+        <location filename="../creationwizard.ui" line="437"/>
         <source>Content Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="418"/>
+        <location filename="../creationwizard.ui" line="440"/>
         <source>Provide some information about the package</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="451"/>
+        <location filename="../creationwizard.ui" line="485"/>
         <source>Display Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="465"/>
+        <location filename="../creationwizard.ui" line="499"/>
         <source>Title Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="472"/>
+        <location filename="../creationwizard.ui" line="506"/>
         <source>Xbox360 Dashboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="482"/>
+        <location filename="../creationwizard.ui" line="516"/>
         <source>Title ID:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="489"/>
+        <location filename="../creationwizard.ui" line="523"/>
         <source>FFFE07D1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="517"/>
+        <location filename="../creationwizard.ui" line="551"/>
         <source>Thumbnails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="520"/>
+        <location filename="../creationwizard.ui" line="554"/>
         <source>Choose the thumbnail images for the package</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="564"/>
+        <location filename="../creationwizard.ui" line="625"/>
         <source>Thumbnail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="652"/>
-        <location filename="../creationwizard.ui" line="765"/>
-        <location filename="../creationwizard.ui" line="862"/>
+        <location filename="../creationwizard.ui" line="713"/>
+        <location filename="../creationwizard.ui" line="856"/>
+        <location filename="../creationwizard.ui" line="980"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="677"/>
+        <location filename="../creationwizard.ui" line="768"/>
         <source>Title Thumbnail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="806"/>
+        <location filename="../creationwizard.ui" line="912"/>
         <source>Save Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="809"/>
+        <location filename="../creationwizard.ui" line="915"/>
         <source>Choose a place to create the package</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../creationwizard.ui" line="855"/>
+        <location filename="../creationwizard.ui" line="973"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -558,19 +562,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gameadderdialog.ui" line="52"/>
-        <location filename="../gameadderdialog.ui" line="302"/>
+        <location filename="../gameadderdialog.ui" line="313"/>
         <source>Game Name</source>
         <translation type="unfinished">Nombre del Juego</translation>
     </message>
     <message>
         <location filename="../gameadderdialog.ui" line="57"/>
-        <location filename="../gameadderdialog.ui" line="307"/>
+        <location filename="../gameadderdialog.ui" line="318"/>
         <source>Gamerscore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gameadderdialog.ui" line="62"/>
-        <location filename="../gameadderdialog.ui" line="312"/>
+        <location filename="../gameadderdialog.ui" line="323"/>
         <source>Award Count</source>
         <translation type="unfinished"></translation>
     </message>
@@ -592,17 +596,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gameadderdialog.ui" line="281"/>
+        <location filename="../gameadderdialog.ui" line="273"/>
+        <source>Developer Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gameadderdialog.ui" line="292"/>
         <source>Queue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gameadderdialog.ui" line="335"/>
+        <location filename="../gameadderdialog.ui" line="346"/>
         <source>Add Games</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gameadderdialog.ui" line="346"/>
+        <location filename="../gameadderdialog.ui" line="357"/>
         <source>Cancel</source>
         <translation type="unfinished">Cancelar</translation>
     </message>
@@ -753,145 +762,155 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="113"/>
+        <location filename="../mainwindow.ui" line="114"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="121"/>
+        <location filename="../mainwindow.ui" line="125"/>
         <source>Plugins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="125"/>
+        <location filename="../mainwindow.ui" line="129"/>
         <source>Game Modders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="130"/>
+        <location filename="../mainwindow.ui" line="134"/>
         <source>Profile Modders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="138"/>
+        <location filename="../mainwindow.ui" line="142"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="162"/>
+        <location filename="../mainwindow.ui" line="166"/>
         <source>Create Package</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="171"/>
+        <location filename="../mainwindow.ui" line="175"/>
         <source>Theme Creator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="180"/>
+        <location filename="../mainwindow.ui" line="184"/>
         <source>About</source>
         <translation type="unfinished">Acerca de</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="189"/>
+        <location filename="../mainwindow.ui" line="193"/>
         <source>Package</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="198"/>
+        <location filename="../mainwindow.ui" line="202"/>
         <source>GPD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="207"/>
+        <location filename="../mainwindow.ui" line="211"/>
         <source>Avatar Asset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="216"/>
+        <location filename="../mainwindow.ui" line="220"/>
         <source>Title ID Finder</source>
         <translation type="unfinished">Buscador de Title Id</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="221"/>
+        <location filename="../mainwindow.ui" line="225"/>
         <source>Profile Creator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="232"/>
+        <location filename="../mainwindow.ui" line="236"/>
         <source>Profile Editor</source>
         <translation type="unfinished">Editor de Perfil</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="243"/>
+        <location filename="../mainwindow.ui" line="247"/>
         <source>Game Adder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="258"/>
+        <location filename="../mainwindow.ui" line="262"/>
         <source>Gamer Picture Pack Creator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="263"/>
+        <location filename="../mainwindow.ui" line="267"/>
         <source>Some Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="268"/>
+        <location filename="../mainwindow.ui" line="272"/>
         <source>Reload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="273"/>
+        <location filename="../mainwindow.ui" line="277"/>
         <source>asdf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="282"/>
+        <location filename="../mainwindow.ui" line="286"/>
         <source>View Wiki</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="291"/>
+        <location filename="../mainwindow.ui" line="295"/>
         <source>Donate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="300"/>
+        <location filename="../mainwindow.ui" line="304"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="309"/>
+        <location filename="../mainwindow.ui" line="313"/>
         <source>FATX File Path Tool</source>
         <translation type="unfinished">Ubicación de Herramienta FATX</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="97"/>
+        <location filename="../mainwindow.ui" line="318"/>
+        <source>Profile Cleaner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="327"/>
+        <source>Check For Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="116"/>
         <source>Open a Save Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="155"/>
-        <location filename="../mainwindow.cpp" line="425"/>
+        <location filename="../mainwindow.cpp" line="193"/>
+        <location filename="../mainwindow.cpp" line="475"/>
         <source>Open a Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="457"/>
-        <location filename="../mainwindow.cpp" line="565"/>
-        <location filename="../mainwindow.cpp" line="607"/>
+        <location filename="../mainwindow.cpp" line="508"/>
+        <location filename="../mainwindow.cpp" line="621"/>
+        <location filename="../mainwindow.cpp" line="670"/>
         <source>Open Package</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="479"/>
+        <location filename="../mainwindow.cpp" line="531"/>
         <source>Open XDBF File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="503"/>
+        <location filename="../mainwindow.cpp" line="556"/>
         <source>Open an Avatar Asset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1237,6 +1256,128 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>ProfileCleanerWizard</name>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="14"/>
+        <location filename="../profilecleanerwizard.ui" line="34"/>
+        <source>Profile Cleaner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="37"/>
+        <source>Welcome!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="99"/>
+        <source>Welcome to the profile cleaner. This tool will allow you to remove unnecessary files inisde your profile to make it smaller.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="125"/>
+        <source>Select a Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="128"/>
+        <source>Open a profile to clean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="192"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="199"/>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="224"/>
+        <source>Customize the Clean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="227"/>
+        <source>How much data should be removed?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="290"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Dust&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Remove all of the unused data in both the GPDs and in your profile&apos;s package&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="316"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Sweep&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Removes everything that a dust will, as well as all the images from the GPDs&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="342"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Purify&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Removes everything a sweep will, plus setting data from game GPDs. This may cause you to lose game progress&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="377"/>
+        <source>Cleaning...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="380"/>
+        <source>Your profile is in the process of being cleaned</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="462"/>
+        <source>&lt;b&gt;Start Size:&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="480"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;End Size:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="491"/>
+        <location filename="../profilecleanerwizard.ui" line="517"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecleanerwizard.ui" line="506"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Data Removed:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ProfileCreatorWizard</name>
     <message>
         <location filename="../profilecreatorwizard.ui" line="14"/>
@@ -1244,16 +1385,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="28"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Profile Creation Wizard&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../profilecreatorwizard.ui" line="82"/>
+        <location filename="../profilecreatorwizard.ui" line="74"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1264,47 +1396,58 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="114"/>
+        <location filename="../profilecreatorwizard.ui" line="106"/>
         <source>Console Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="117"/>
+        <location filename="../profilecreatorwizard.ui" line="109"/>
         <source>Choose which console type the profile will be for</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="192"/>
-        <source>Retail</source>
+        <location filename="../profilecreatorwizard.ui" line="25"/>
+        <source>Profile Creation Wizard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="197"/>
-        <source>Development Kit</source>
+        <location filename="../profilecreatorwizard.ui" line="28"/>
+        <source>Welcome!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="207"/>
+        <location filename="../profilecreatorwizard.ui" line="182"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Only choose development kit if you&apos;re playing on an official XDK or if you&apos;re running the dev kernel.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:10pt; font-weight:600;&quot;&gt;Retail&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:8pt;&quot;&gt;Any console that can/did connect to Xbox LIVE. This includes banned consoles as well as JTAGs and RGHs. Not sure? Then choose this option.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="239"/>
-        <location filename="../profilecreatorwizard.ui" line="308"/>
+        <location filename="../profilecreatorwizard.ui" line="208"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:10pt; font-weight:600;&quot;&gt;Development Kit&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:8pt;&quot;&gt;Any official XDK or an RGH that is running the dev kernel. These consoles cannot connect to Xbox LIVE.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../profilecreatorwizard.ui" line="243"/>
+        <location filename="../profilecreatorwizard.ui" line="312"/>
         <source>Gamertag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="242"/>
+        <location filename="../profilecreatorwizard.ui" line="246"/>
         <source>Choose the gamertag for the profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="317"/>
+        <location filename="../profilecreatorwizard.ui" line="321"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1313,52 +1456,52 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="349"/>
+        <location filename="../profilecreatorwizard.ui" line="353"/>
         <source>Gamerpicture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="352"/>
+        <location filename="../profilecreatorwizard.ui" line="356"/>
         <source>Choose the gamerpicture for the profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="569"/>
+        <location filename="../profilecreatorwizard.ui" line="573"/>
         <source>Avatar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="572"/>
+        <location filename="../profilecreatorwizard.ui" line="576"/>
         <source>Choose the starting avatar for the profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="678"/>
+        <location filename="../profilecreatorwizard.ui" line="682"/>
         <source>Male</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="793"/>
+        <location filename="../profilecreatorwizard.ui" line="797"/>
         <source>Female</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="849"/>
+        <location filename="../profilecreatorwizard.ui" line="853"/>
         <source>Save Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="852"/>
+        <location filename="../profilecreatorwizard.ui" line="856"/>
         <source>Choose a place to save the new profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="913"/>
+        <location filename="../profilecreatorwizard.ui" line="917"/>
         <source>Desktop Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../profilecreatorwizard.ui" line="920"/>
+        <location filename="../profilecreatorwizard.ui" line="924"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2005,9 +2148,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>StfsToolsDialog</name>
     <message>
-        <location filename="../stfstoolsdialog.ui" line="14"/>
         <source>STFS Tools</source>
-        <translation>Herramienta STFS</translation>
+        <translation type="obsolete">Herramienta STFS</translation>
+    </message>
+    <message>
+        <location filename="../stfstoolsdialog.ui" line="14"/>
+        <source>STFS Tool</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../stfstoolsdialog.ui" line="28"/>
@@ -2117,78 +2264,80 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="28"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Theme Creation Wizard&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../themecreationwizard.ui" line="87"/>
+        <location filename="../themecreationwizard.ui" line="79"/>
         <source>Welcome to the theme creator. This wizard will walk you through the steps of creating your very own custom theme for the Xbox360.
 
 Click next to begin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="115"/>
+        <location filename="../themecreationwizard.ui" line="107"/>
         <source>Console Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="118"/>
+        <location filename="../themecreationwizard.ui" line="110"/>
         <source>Choose the console type that the theme will be for</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="193"/>
-        <source>Retail</source>
+        <location filename="../themecreationwizard.ui" line="25"/>
+        <source>Theme Creation Wizard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="198"/>
-        <source>Development Kit</source>
+        <location filename="../themecreationwizard.ui" line="28"/>
+        <source>Welcome!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="208"/>
+        <location filename="../themecreationwizard.ui" line="183"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:10pt;&quot;&gt;Only choose development kit if you&apos;re playing on an official XDK or if you&apos;re running the dev kernel.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:10pt; font-weight:600;&quot;&gt;Retail&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:8pt;&quot;&gt;Any console that can/did connect to Xbox LIVE. This includes banned consoles as well as JTAGs and RGHs. Not sure? Then choose this option.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="240"/>
+        <location filename="../themecreationwizard.ui" line="209"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:10pt; font-weight:600;&quot;&gt;Development Kit&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:8pt;&quot;&gt;Any official XDK or an RGH that is running the dev kernel. These consoles cannot connect to Xbox LIVE.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../themecreationwizard.ui" line="244"/>
         <source>General Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="243"/>
+        <location filename="../themecreationwizard.ui" line="247"/>
         <source>Choose a thumbnail and a name for your theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="392"/>
-        <location filename="../themecreationwizard.ui" line="1094"/>
+        <location filename="../themecreationwizard.ui" line="396"/>
+        <location filename="../themecreationwizard.ui" line="1098"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="434"/>
+        <location filename="../themecreationwizard.ui" line="438"/>
         <source>Sphere Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="437"/>
+        <location filename="../themecreationwizard.ui" line="441"/>
         <source>Choose the sphere color for the theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="520"/>
+        <location filename="../themecreationwizard.ui" line="524"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2197,65 +2346,65 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="552"/>
+        <location filename="../themecreationwizard.ui" line="556"/>
         <source>Wallpaper One</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="555"/>
+        <location filename="../themecreationwizard.ui" line="559"/>
         <source>Background to the Home, Dash Identity, Party Details and LIVE channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="609"/>
-        <location filename="../themecreationwizard.ui" line="730"/>
-        <location filename="../themecreationwizard.ui" line="851"/>
-        <location filename="../themecreationwizard.ui" line="972"/>
+        <location filename="../themecreationwizard.ui" line="613"/>
+        <location filename="../themecreationwizard.ui" line="734"/>
+        <location filename="../themecreationwizard.ui" line="855"/>
+        <location filename="../themecreationwizard.ui" line="976"/>
         <source>Select an Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="673"/>
+        <location filename="../themecreationwizard.ui" line="677"/>
         <source>Wallpaper Two</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="676"/>
+        <location filename="../themecreationwizard.ui" line="680"/>
         <source>Background to the Games Library channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="794"/>
+        <location filename="../themecreationwizard.ui" line="798"/>
         <source>Wallpaper Three</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="797"/>
+        <location filename="../themecreationwizard.ui" line="801"/>
         <source>Background to the Media Library channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="915"/>
+        <location filename="../themecreationwizard.ui" line="919"/>
         <source>Wallpaper Four</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="918"/>
+        <location filename="../themecreationwizard.ui" line="922"/>
         <source>Background to the System Settings channel </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="1036"/>
+        <location filename="../themecreationwizard.ui" line="1040"/>
         <source>Save Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="1039"/>
+        <location filename="../themecreationwizard.ui" line="1043"/>
         <source>Choose a place to save the new theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../themecreationwizard.ui" line="1087"/>
+        <location filename="../themecreationwizard.ui" line="1091"/>
         <source>Desktop Location</source>
         <translation type="unfinished"></translation>
     </message>
