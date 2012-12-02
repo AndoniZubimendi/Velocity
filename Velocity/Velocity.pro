@@ -65,6 +65,7 @@ SOURCES += main.cpp \
     GPD/XDBFHelpers.cpp \
     GPD/DashboardGPD.cpp \
     Stfs/StfsPackage.cpp \
+    Iso/Iso.cpp \
     renamedialog.cpp \
     creationwizard.cpp \
     achievementcreationwizard.cpp \
@@ -96,6 +97,7 @@ HEADERS  += mainwindow.h \
     about.h \
     Stfs/StfsMetaData.h \
     Stfs/StfsConstants.h \
+    Iso/Iso.h \
     FileIO.h \
     FileIO.h \
     GPD/XDBFDefininitions.h \
