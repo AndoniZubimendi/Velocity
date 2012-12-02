@@ -5,7 +5,7 @@
 #define BLOCK_SIZE_BITS     11
 
 Iso::Iso(const QString &path) : isoFile(0), type(INVALID), blockSize(1 << BLOCK_SIZE_BITS) {
-    isoFile = new FileIO(path.toStdString());
+    isoFile = new FileIO(path.toStdString(), false, true);
     if (!isoFile)
         return;
 

@@ -9,12 +9,20 @@ using std::streampos;
 using std::ios_base;
 
 
-FileIO::FileIO(string path, bool truncate) : filePath(path)
+FileIO::FileIO(const string &path, bool truncate, bool readOnly) : filePath(path)
 {
-    fstr = new fstream(path.c_str(), (std::_Ios_Openmode)(fstream::in | fstream::out | fstream::binary | (fstream::trunc * truncate)));
+    std::_Ios_Openmode mode = (fstream::in | fstream::binary);
+    if (!readOnly)
+        mode |= fstream::out;
+
+    if (truncate)
+        mode |= fstream::trunc;
+
+    fstr = new fstream(path.c_str(), mode);
     if (!fstr->is_open())
         throw QString("FileIO: Error opening the file. %1\n").arg(errno);
-	endian = BigEndian;
+
+    endian = BigEndian;
 }
 
 void FileIO::setPosition(streampos pos, ios_base::seek_dir dir)

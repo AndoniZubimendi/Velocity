@@ -16,7 +16,7 @@ enum EndianType
 class FileIO
 {
 public:
-    FileIO(std::string path, bool truncate = false);
+    FileIO(const std::string &path, bool truncate = false, bool readOnly = false);
     void setPosition(std::streampos pos, std::ios_base::seek_dir dir = std::ios_base::beg);
     std::streampos getPosition();
 	void close();
