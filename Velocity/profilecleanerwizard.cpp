@@ -95,7 +95,7 @@ void ProfileCleanerWizard::clean()
 
     // iterate through all of the GPDs in the profile
     QFileInfoList files = d.entryInfoList();
-    for (DWORD i = 0; i < files.size(); i++)
+    for (int i = 0; i < files.size(); i++)
     {
         if (files.at(i).fileName().mid(files.at(i).fileName().lastIndexOf(".")) == ".gpd")
         {
@@ -217,7 +217,7 @@ void ProfileCleanerWizard::clean()
 void ProfileCleanerWizard::extractAll(FileListing *f, QString parentDirectory)
 {
     // extract all files
-    for (DWORD i = 0; i < f->fileEntries.size(); i++)
+    for (int i = 0; i < f->fileEntries.size(); i++)
     {
         profile->ExtractFile(&f->fileEntries[i], parentDirectory + f->fileEntries[i].name);
         QApplication::processEvents();
@@ -235,11 +235,11 @@ void ProfileCleanerWizard::extractAll(FileListing *f, QString parentDirectory)
 void ProfileCleanerWizard::deleteAllRecursive(QDir directory)
 {
     QFileInfoList files = directory.entryInfoList(QDir::Files);
-    for (DWORD i = 0; i < files.size(); i++)
+    for (int i = 0; i < files.size(); i++)
         QFile::remove(files.at(i).absoluteFilePath());
     QApplication::processEvents();
     QFileInfoList dirs = directory.entryInfoList(QDir::Dirs);
-    for (DWORD i = 2; i < dirs.size(); i++)
+    for (int i = 2; i < dirs.size(); i++)
     {
         QDir d;
         deleteAllRecursive(QDir(dirs.at(i).absoluteFilePath() + "/"));
@@ -252,13 +252,13 @@ void ProfileCleanerWizard::injectAll(StfsPackage *profile, QDir currentDirectory
     try
     {
         QFileInfoList files = currentDirectory.entryInfoList(QDir::Files);
-        for (DWORD i = 0; i < files.size(); i++)
+        for (int i = 0; i < files.size(); i++)
         {
             profile->InjectFile(files.at(i).absoluteFilePath(), currentStfsDir + files.at(i).fileName());
             QApplication::processEvents();
         }
         QFileInfoList dirs = currentDirectory.entryInfoList(QDir::Dirs);
-        for (DWORD i = 2; i < dirs.size(); i++)
+        for (int i = 2; i < dirs.size(); i++)
         {
             qDebug() << "dirname: " << dirs.at(i).baseName();
             profile->CreateFolder(currentStfsDir + dirs.at(i).baseName());
