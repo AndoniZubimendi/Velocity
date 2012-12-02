@@ -31,7 +31,8 @@ mac {
 
 unix:!mac {
     INCLUDEPATH += "/usr/local/include/botan-1.10"
-    LIBS += "/usr/local/lib/libbotan-1.10.a"
+    INCLUDEPATH += "/usr/include/botan-1.10"
+    LIBS += "-lbotan-1.10"
 }
 
 UI_DIR = ../Velocity
