@@ -64,7 +64,7 @@
      <x>0</x>
      <y>0</y>
      <width>1013</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -82,6 +82,7 @@
      <addaction name="actionSTRB_File"/>
      <addaction name="actionXDBF_File"/>
      <addaction name="actionPackage"/>
+     <addaction name="actionIso"/>
     </widget>
     <addaction name="menuOpen"/>
     <addaction name="actionCreate_Package"/>
@@ -191,6 +192,15 @@
    </property>
    <property name="text">
     <string>Package</string>
+   </property>
+  </action>
+  <action name="actionIso">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Images/xbox.png</normaloff>:/Images/xbox.png</iconset>
+   </property>
+   <property name="text">
+    <string>Iso</string>
    </property>
   </action>
   <action name="actionXDBF_File">

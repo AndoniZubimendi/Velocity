@@ -22,6 +22,7 @@
 #include "profileeditor.h"
 #include "about.h"
 #include "packageviewer.h"
+#include "isoviewer.h"
 #include "xdbfdialog.h"
 #include "strbdialog.h"
 #include "profileeditor.h"
@@ -44,6 +45,7 @@
 #include "json.h"
 #include "Stfs/StfsPackage.h"
 #include "GPD/GPDBase.h"
+#include "Iso/Iso.h"
 
 Q_DECLARE_METATYPE( StfsPackage* )
 
@@ -76,6 +78,8 @@ private slots:
     void on_actionAbout_triggered();
 
     void on_actionPackage_triggered();
+
+    void on_actionIso_triggered();
 
     void on_actionXDBF_File_triggered();
 

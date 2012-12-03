@@ -526,6 +526,29 @@ void MainWindow::on_actionPackage_triggered()
     }
 }
 
+void MainWindow::on_actionIso_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Iso"), QDesktopServices::storageLocation(QDesktopServices::DesktopLocation), "Iso files (*.iso)|All Files (*)");
+
+    if (fileName.isEmpty())
+        return;
+
+    try
+    {
+        Iso *iso = new Iso(fileName);
+        IsoViewer *viewer = new IsoViewer(ui->statusBar, iso, this);
+        viewer->setAttribute(Qt::WA_DeleteOnClose);
+        ui->mdiArea->addSubWindow(viewer);
+        viewer->show();
+
+        ui->statusBar->showMessage("ISO file loaded successfully.", 3000);
+    }
+    catch (const QString &error)
+    {
+        QMessageBox::critical(this, "ISO Error", "An error has occurred while opening the iso file.\n\n" + error);
+    }
+}
+
 void MainWindow::on_actionXDBF_File_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open XDBF File"), QDesktopServices::storageLocation(QDesktopServices::DesktopLocation), "GPD File (*.gpd *.fit);;All Files (*)");

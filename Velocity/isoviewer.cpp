@@ -37,8 +37,6 @@ void IsoViewer::PopulateTreeWidget(const IsoFileListing *entry, QTreeWidgetItem 
 {
     bool isRootEntry = entry->folder.name.toStdString() == "";
 
-    if(isRootEntry)
-        std::cout << "is root: " << entry->folder.name.toStdString() << std::endl;
     for (int i = 0; i < entry->folderEntries.size(); i++)
     {
         QTreeWidgetItem *folder;
@@ -49,7 +47,7 @@ void IsoViewer::PopulateTreeWidget(const IsoFileListing *entry, QTreeWidgetItem 
 
         folder->setText(0, entry->folderEntries.at(i).folder.name);
         folder->setIcon(0, QIcon(":/Images/FolderFileIcon.png"));
-        folder->setText(1, "0 bytes");
+        folder->setText(1, "Directory");
         folder->setText(2, "N/A");
         folder->setText(3, "N/A");
 
@@ -208,21 +206,6 @@ void IsoViewer::showRemoveContextMenu(QPoint point)
         if (!isFolder)
         {
             contextMenu.addAction(QPixmap(":/Images/extract.png"), "Extract Selected");
-            contextMenu.addAction(QPixmap(":/Images/delete.png"), "Remove Selected");
-        }
-
-        if (amount == 1)
-        {
-            contextMenu.addSeparator();
-            contextMenu.addAction(QPixmap(":/Images/rename.png"), "Rename Selected");
-
-            if (!isFolder)
-                contextMenu.addAction(QPixmap(":/Images/replace.png"), "Replace File");
-            else
-            {
-                contextMenu.addSeparator();
-                contextMenu.addAction(QPixmap(":/Images/add.png"), "Inject Here");
-            }
         }
 
         contextMenu.addSeparator();
