@@ -183,6 +183,8 @@ enum State
     StateUnlockedOnline
 };
 
+Q_DECLARE_METATYPE( struct AvatarAward* )
+
 class ProfileEditor : public QDialog
 {
     Q_OBJECT
