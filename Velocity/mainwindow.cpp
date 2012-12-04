@@ -528,7 +528,7 @@ void MainWindow::on_actionPackage_triggered()
 
 void MainWindow::on_actionIso_triggered()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Iso"), QDesktopServices::storageLocation(QDesktopServices::DesktopLocation), "Iso files (*.iso)|All Files (*)");
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Iso"), QDesktopServices::storageLocation(QDesktopServices::DesktopLocation), "Iso files (*.iso);;All Files (*)");
 
     if (fileName.isEmpty())
         return;
