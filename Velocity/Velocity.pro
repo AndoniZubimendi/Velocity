@@ -40,6 +40,7 @@ UI_DIR = ../Velocity
 SOURCES += main.cpp \
     mainwindow.cpp \
     packageviewer.cpp \
+    isoviewer.cpp \
     profileeditor.cpp \
     about.cpp \
     Stfs/StfsMetaData.cpp \
@@ -93,6 +94,7 @@ SOURCES += main.cpp \
 
 HEADERS  += mainwindow.h \
     packageviewer.h \
+    isoviewer.h \
     profileeditor.h \
     about.h \
     Stfs/StfsMetaData.h \
@@ -155,6 +157,7 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     packageviewer.ui \
+    isoviewer.ui \
     profileeditor.ui \
     about.ui \
     metadata.ui \
