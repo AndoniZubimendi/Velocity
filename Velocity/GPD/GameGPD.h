@@ -45,6 +45,12 @@ public:
 	// Description: remove all of the unused memory from the gpd
 	void CleanGPD();
 
+    // Description: call before writing anything to init the io
+    void StartWriting();
+
+    // Description: call after writing anything to close the io
+    void StopWriting();
+
 private:
 
 	// Descritpion: read the achievement entry passed in
@@ -52,5 +58,7 @@ private:
 
 	// Description: read in all of the default stuff to be read in for a game gpd
 	void init();
+
+    QString filePath;
 };
 

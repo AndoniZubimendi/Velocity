@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ProgressDialog</class>
- <widget class="QDialog" name="ProgressDialog">
+ <class>MultiProgressDialog</class>
+ <widget class="QDialog" name="MultiProgressDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>445</width>
-    <height>126</height>
+    <width>438</width>
+    <height>121</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>445</width>
-    <height>126</height>
+    <width>438</width>
+    <height>121</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>445</width>
-    <height>126</height>
+    <width>438</width>
+    <height>121</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
-  </property>
-  <property name="windowIcon">
-   <iconset resource="Resources.qrc">
-    <normaloff>:/Images/Leaner24.png</normaloff>:/Images/Leaner24.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
@@ -84,7 +80,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Overall Progress, File</string>
+      <string>Overall Progress</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>

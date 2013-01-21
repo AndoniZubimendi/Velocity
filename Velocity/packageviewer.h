@@ -12,7 +12,6 @@
 #include "imagedialog.h"
 #include "propertiesdialog.h"
 #include "stfstoolsdialog.h"
-#include "progressdialog.h"
 #include "singleprogressdialog.h"
 
 // qt
@@ -74,7 +73,8 @@ private:
     Ui::PackageViewer *ui;
     void PopulateTreeWidget(const FileListing *entry, QTreeWidgetItem *parent = NULL);
     void GetPackagePath(QTreeWidgetItem *item, QString *out, bool folderOnly = false);
-    void SetIcon(const QString &name, QTreeWidgetItem *item);
+    void SetIcon(const QString &name, const FileEntry *entry, QTreeWidgetItem *item);
+
     StfsPackage *package;
     bool disposePackage;
     FileListing listing;
@@ -83,11 +83,6 @@ private:
     QMenu *openInMenu;
     QList <QAction*> gpdActions, gameActions;
     QAction *profileEditor, *gameAdder;
-
-    void showAllItems(QTreeWidgetItem *parent);
-    void hideAllItems(QTreeWidgetItem *parent);
-
-    void collapseAllChildren(QTreeWidgetItem *item);
 };
 
 #endif // PACKAGEVIEWER_H

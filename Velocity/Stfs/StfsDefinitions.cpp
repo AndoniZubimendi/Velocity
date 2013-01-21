@@ -7,7 +7,7 @@
 
 #include "../FileIO.h"
 
-void ReadVolumeDescriptorEx(VolumeDescriptor *descriptor, FileIO *io, DWORD address)
+void ReadStfsVolumeDescriptorEx(StfsVolumeDescriptor *descriptor, FileIO *io, DWORD address)
 {
     // seek to the volume descriptor
     io->setPosition(address);
@@ -27,6 +27,25 @@ void ReadVolumeDescriptorEx(VolumeDescriptor *descriptor, FileIO *io, DWORD addr
 
     descriptor->allocatedBlockCount = io->readDword();
     descriptor->unallocatedBlockCount = io->readDword();
+}
+
+void ReadSvodVolumeDescriptorEx(SvodVolumeDescriptor *descriptor, FileIO *io)
+{
+    // seek to the volume descriptor
+    io->setPosition(0x379);
+
+    descriptor->size = io->readByte();
+    descriptor->blockCacheElementCount = io->readByte();
+    descriptor->workerThreadProcessor = io->readByte();
+    descriptor->workerThreadPriority = io->readByte();
+
+    io->readBytes(descriptor->rootHash, 0x14);
+
+    descriptor->flags = io->readByte();
+    descriptor->dataBlockCount = io->readInt24(LittleEndian);
+    descriptor->dataBlockOffset = io->readInt24(LittleEndian);
+
+    io->readBytes(descriptor->reserved, 0x05);
 }
 
 QString LicenseTypeToString(LicenseType type)
@@ -57,12 +76,12 @@ QString LicenseTypeToString(LicenseType type)
 }
 
 
-QString ByteSizeToString(int bytes)
+QString ByteSizeToString(DWORD bytes)
 {
-    int B = 1; //byte
-    int KB = 1024 * B; //kilobyte
-    int MB = 1024 * KB; //megabyte
-    int GB = 1024 * MB; //gigabyte
+    DWORD B = 1; //byte
+    DWORD KB = 1024 * B; //kilobyte
+    DWORD MB = 1024 * KB; //megabyte
+    DWORD GB = 1024 * MB; //gigabyte
 
     // divide stuff
     std::stringstream result;
@@ -71,7 +90,7 @@ QString ByteSizeToString(int bytes)
     else if (bytes > MB)
         result << (bytes / MB) << " MB";
     else if (bytes > KB)
-        result << ((int)(((bytes / (float)KB) + 0.005f) * 100) / 100.0f) << " KB";
+        result << ((DWORD)(((bytes / (float)KB) + 0.005f) * 100) / 100.0f) << " KB";
     else
         result << bytes << " bytes";
 
@@ -120,7 +139,7 @@ MSTime TimetToMSTime(time_t time)
     return toReturn;
 }
 
-void WriteVolumeDescriptorEx(VolumeDescriptor *descriptor, FileIO *io, DWORD address)
+void WriteStfsVolumeDescriptorEx(StfsVolumeDescriptor *descriptor, FileIO *io, DWORD address)
 {
     // volume descriptor position
     io->setPosition(address);
@@ -139,6 +158,28 @@ void WriteVolumeDescriptorEx(VolumeDescriptor *descriptor, FileIO *io, DWORD add
     io->write(descriptor->topHashTableHash, 0x14);
     io->write(descriptor->allocatedBlockCount);
     io->write(descriptor->unallocatedBlockCount);
+}
+
+void WriteSvodVolumeDescriptorEx(SvodVolumeDescriptor *descriptor, FileIO *io)
+{
+    // volume descriptor position
+    io->setPosition(0x379);
+    io->setEndian(LittleEndian);
+
+    io->write(descriptor->size);
+    io->write(descriptor->blockCacheElementCount);
+    io->write(descriptor->workerThreadProcessor);
+    io->write(descriptor->workerThreadPriority);
+
+    io->write(descriptor->rootHash, 0x14);
+
+    io->write(descriptor->flags);
+    io->write((INT24)descriptor->dataBlockCount);
+    io->write((INT24)descriptor->dataBlockOffset);
+
+    io->write(descriptor->reserved, 5);
+
+    io->setEndian(BigEndian);
 }
 
 void ReadCertificateEx(Certificate *cert, FileIO *io, DWORD address)
@@ -220,8 +261,6 @@ QString ContentTypeToString(ContentType type)
 {
     switch (type)
     {
-        case App:
-            return QString("App");
         case ArcadeGame:
             return QString("Arcade Game");
         case AvatarAssetPack:
@@ -234,6 +273,8 @@ QString ContentTypeToString(ContentType type)
             return QString("Community Game");
         case GameDemo:
             return QString("Game Demo");
+        case GameOnDemand:
+            return QString("Game On Demand");
         case GamerPicture:
             return QString("Gamer Picture");
         case GamerTitle:

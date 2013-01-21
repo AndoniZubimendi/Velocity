@@ -160,7 +160,9 @@ void PackageViewer::PopulateTreeWidget(const FileListing *entry, QTreeWidgetItem
         else
             fileEntry = new QTreeWidgetItem(ui->treeWidget);
 
-        SetIcon(entry->fileEntries[i].name, fileEntry);
+        QString path;
+        GetPackagePath(fileEntry, &path);
+        SetIcon(entry->fileEntries[i].name, &entry->fileEntries[i], fileEntry);
 
         QString name = entry->fileEntries.at(i).name;
         fileEntry->setText(0, name);
@@ -199,25 +201,18 @@ void PackageViewer::GetPackagePath(QTreeWidgetItem *item, QString *out, bool fol
         GetPackagePath(item->parent(), out);
 }
 
-void PackageViewer::SetIcon(const QString &name, QTreeWidgetItem *item)
+void PackageViewer::SetIcon(const QString &name, const FileEntry *entry, QTreeWidgetItem *item)
 {
-    int index = name.lastIndexOf(".");
-    QString extension = "";
-    if (index != -1)
-        extension = name.mid(index);
-
-    if (extension == ".gpd" || extension == ".fit")
-        item->setIcon(0, QIcon(":/Images/GpdFileIcon.png"));
-    else if (name == "Account")
-        item->setIcon(0, QIcon(":/Images/AccountFileIcon.png"));
-    else if (name == "PEC")
-        item->setIcon(0, QIcon(":/Images/PecFileIcon.png"));
-    else if (name == "Account")
-        item->setIcon(0, QIcon(":/Images/AccountFileIcon.png"));
-    else if (extension == ".png" || extension == ".jpg" || extension == ".jpeg")
-        item->setIcon(0, QIcon(":/Images/ImageFileIcon.png"));
-    else
-        item->setIcon(0, QIcon(":/Images/DefaultFileIcon.png"));
+    try
+    {
+    QIcon toSet;
+    QtHelpers::GetFileIcon(package->GetFileMagic(*entry), name, toSet, *item);
+    item->setIcon(0, toSet);
+    }
+    catch (string error)
+    {
+        QMessageBox::critical(this, "", QString::fromStdString(error));
+    }
 }
 
 void PackageViewer::on_btnFix_clicked()
@@ -282,7 +277,7 @@ void PackageViewer::on_btnFix_clicked()
 
 void PackageViewer::on_btnViewAll_clicked()
 {
-    Metadata meta(statusBar, package);
+    Metadata meta(statusBar, package->metaData, package->IsPEC(), this);
     meta.exec();
 
     if (package->metaData->magic == LIVE || package->metaData->magic == PIRS)
@@ -318,49 +313,7 @@ void PackageViewer::showSaveImageContextMenu(QPoint point)
 
 void PackageViewer::on_txtSearch_textChanged(const QString &arg1)
 {
-    QList<QTreeWidgetItem*> itemsMatched = ui->treeWidget->findItems(ui->txtSearch->text(), Qt::MatchContains | Qt::MatchRecursive);
-
-    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
-        hideAllItems(ui->treeWidget->topLevelItem(i));
-
-    if (itemsMatched.count() == 0 || arg1 == "")
-    {
-        ui->txtSearch->setStyleSheet("color: rgb(255, 1, 1);");
-        for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
-        {
-            showAllItems(ui->treeWidget->topLevelItem(i));
-            collapseAllChildren(ui->treeWidget->topLevelItem(i));
-        }
-        return;
-    }
-
-    ui->txtSearch->setStyleSheet("");
-    // add all the matched ones to the list
-    for (int i = 0; i < itemsMatched.count(); i++)
-    {
-        // show all the item's parents
-        QTreeWidgetItem *parent = itemsMatched.at(i)->parent();
-        while (parent != NULL)
-        {
-            ui->treeWidget->setItemHidden(parent, false);
-            parent->setExpanded(true);
-            parent = parent->parent();
-        }
-
-        // show the item itself
-        ui->treeWidget->setItemHidden(itemsMatched.at(i), false);
-    }
-}
-
-void PackageViewer::hideAllItems(QTreeWidgetItem *parent)
-{
-    for (int i = 0; i < parent->childCount(); i++)
-    {
-        if (parent->child(i)->childCount() != 0)
-            hideAllItems(parent->child(i));
-        parent->child(i)->setHidden(true);
-    }
-    parent->setHidden(true);
+    QtHelpers::SearchTreeWidget(ui->treeWidget, ui->txtSearch, arg1);
 }
 
 void PackageViewer::onOpenInSelected(QAction *action)
@@ -452,7 +405,7 @@ void PackageViewer::showRemoveContextMenu(QPoint point)
 
         QString path;
         if (multiple)
-            path = QFileDialog::getExistingDirectory(this, "Save Location", QtHelpers::DesktopLocation());
+            path = QFileDialog::getExistingDirectory(this, "Save Location", QtHelpers::DesktopLocation()) + "/";
         else
             path = QFileDialog::getSaveFileName(this, "Save Location", QtHelpers::DesktopLocation() + "/" + ui->treeWidget->selectedItems()[0]->text(0));
 
@@ -460,26 +413,22 @@ void PackageViewer::showRemoveContextMenu(QPoint point)
             return;
 
 
-        QList<QString> packagePaths;
-        QList<QString> outPaths;
+        QList<void*> outFiles;
+        QList<FileEntry> sillyNess;
         for (int i = 0; i < totalCount; i++)
         {
             QString packagePath;
-            GetPackagePath(items.at(i), &packagePath);
-            packagePaths.append(packagePath);
-
-            QString final = path;
-            if (multiple)
-                final += "\\" + items.at(i)->text(0);
-            outPaths.append(final);
+            GetPackagePath(items[i], &packagePath);
+            sillyNess.append(package->GetFileEntry(packagePath));
+            outFiles.append(&sillyNess[i]);
         }
 
         try
         {
-            ProgressDialog *dialog = new ProgressDialog(package, packagePaths, outPaths, this);
+            MultiProgressDialog *dialog = new MultiProgressDialog(FileSystemSTFS, package, path.replace("\\", "/"), outFiles, this);
             dialog->setModal(true);
             dialog->show();
-            dialog->startWorking();
+            dialog->start();
 
             successCount++;
         }
@@ -549,7 +498,7 @@ void PackageViewer::showRemoveContextMenu(QPoint point)
 
         try
         {
-            SingleProgressDialog *dialog = new SingleProgressDialog(package, path, packagePath, Replace, NULL, this);
+            SingleProgressDialog *dialog = new SingleProgressDialog(FileSystemSTFS, package, OpReplace, packagePath, path, NULL, this);
             dialog->setModal(true);
             dialog->show();
             dialog->startJob();
@@ -584,7 +533,7 @@ void PackageViewer::showRemoveContextMenu(QPoint point)
         try
         {
             FileEntry *injectedEntry = new FileEntry;
-            SingleProgressDialog *dialog = new SingleProgressDialog(package, path, packagePath, Inject, injectedEntry, this);
+            SingleProgressDialog *dialog = new SingleProgressDialog(FileSystemSTFS, package, OpInject, packagePath, path, injectedEntry, this);
             dialog->setModal(true);
             dialog->show();
             dialog->startJob();
@@ -597,7 +546,9 @@ void PackageViewer::showRemoveContextMenu(QPoint point)
             else
                 fileEntry = new QTreeWidgetItem(ui->treeWidget);
 
-            SetIcon(injectedEntry->name, fileEntry);
+            QString filePath;
+            GetPackagePath(fileEntry, &filePath);
+            SetIcon(injectedEntry->name, injectedEntry, fileEntry);
 
             fileEntry->setText(0, injectedEntry->name);
             fileEntry->setText(1, ByteSizeToString(injectedEntry->fileSize));
@@ -644,7 +595,9 @@ void PackageViewer::showRemoveContextMenu(QPoint point)
                     }
                     else
                     {
-                        SetIcon(entry.name, items.at(0));
+                        QString filePath;
+                        GetPackagePath(items[0], &filePath);
+                        SetIcon(entry.name, &entry, items[0]);
                         items.at(0)->setText(0, entry.name);
                         items.at(0)->setText(1, "0x" + QString::number(entry.fileSize, 16).toUpper());
                         items.at(0)->setText(2, "0x" + QString::number(package->BlockToAddress(entry.startingBlockNum), 16).toUpper());
@@ -672,7 +625,7 @@ void PackageViewer::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int /
     if (index != -1)
         extension = item->text(0).mid(index).toLower();
 
-    if (extension == ".gpd" || extension == ".fit")
+    if (item->data(1, Qt::UserRole).toString() == "XDBF")
     {
         try
         {
@@ -714,7 +667,7 @@ void PackageViewer::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int /
             QMessageBox::critical(this, "Error", "Failed to open the GPD.\n\n" + error);
         }
     }
-    else if (extension == ".bin")
+    else if (item->data(1, Qt::UserRole).toString() == "STRB")
     {
         // get the path of the file in the package
         QString packagePath;
@@ -740,7 +693,7 @@ void PackageViewer::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int /
         // delete the temp file
         QFile::remove(tempName);
     }
-    else if (extension == ".png" || extension == ".jpg" || extension == ".jpeg")
+    else if (item->data(1, Qt::UserRole).toString() == "Image")
     {
         // get a temporary file name
         QString tempName = (QDir::tempPath() + "/" + QUuid::createUuid().toString().replace("{", "").replace("}", "").replace("-", ""));
@@ -762,7 +715,7 @@ void PackageViewer::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int /
         // delete the temp file
         QFile::remove(tempName);
     }
-    else if (item->text(0) == "PEC")
+    else if (item->data(1, Qt::UserRole).toString() == "PEC")
     {
         try
         {
@@ -792,41 +745,34 @@ void PackageViewer::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int /
             QMessageBox::critical(this, "Error", "Failed to open PEC file.\n\n" + error);
         }
     }
-    else
+    else if (item->data(1, Qt::UserRole).toString() == "STFS")
     {
         QString packagePath;
         GetPackagePath(item, &packagePath);
 
-        // get the file magic
-        DWORD magic = package->GetFileMagic(packagePath);
-
-        // check and see if it's an STFS package
-        if (magic == CON || magic == LIVE || magic == PIRS)
+        try
         {
-            try
-            {
-                // get a temporary file name
-                QString tempName = (QDir::tempPath() + "/" + QUuid::createUuid().toString().replace("{", "").replace("}", "").replace("-", ""));
+            // get a temporary file name
+            QString tempName = (QDir::tempPath() + "/" + QUuid::createUuid().toString().replace("{", "").replace("}", "").replace("-", ""));
 
-                // extract the file to a temporary location
-                package->ExtractFile(packagePath, tempName);
+            // extract the file to a temporary location
+            package->ExtractFile(packagePath, tempName);
 
-                StfsPackage pack(tempName);
-                PackageViewer dialog(statusBar, &pack, gpdActions, gameActions, this, false);
-                dialog.exec();
+            StfsPackage pack(tempName);
+            PackageViewer dialog(statusBar, &pack, gpdActions, gameActions, this, false);
+            dialog.exec();
 
-                pack.Close();
+            pack.Close();
 
-                // replace
-                package->ReplaceFile(tempName, packagePath);
+            // replace
+            package->ReplaceFile(tempName, packagePath);
 
-                // delete the temporary file
-                QFile::remove(tempName);
-            }
-            catch(const QString &error)
-            {
-                QMessageBox::critical(this, "Error", "Failed to open Stfs Package.\n\n" + error);
-            }
+            // delete the temporary file
+            QFile::remove(tempName);
+        }
+        catch(string error)
+        {
+            QMessageBox::critical(this, "Error", "Failed to open Stfs Package.\n\n" + QString::fromStdString(error));
         }
     }
 }
@@ -841,25 +787,5 @@ void PackageViewer::on_btnShowAll_clicked()
 {
     ui->txtSearch->setText("");
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
-        showAllItems(ui->treeWidget->topLevelItem(i));
-}
-
-void PackageViewer::showAllItems(QTreeWidgetItem *parent)
-{
-    for (int i = 0; i < parent->childCount(); i++)
-    {
-        if (parent->child(i)->childCount() != 0)
-            hideAllItems(parent->child(i));
-        parent->child(i)->setHidden(false);
-    }
-    parent->setHidden(false);
-}
-
-void PackageViewer::collapseAllChildren(QTreeWidgetItem *item)
-{
-    item->setExpanded(false);
-
-    // collapse all children
-    for (int i = 0; i < item->childCount(); i++)
-        collapseAllChildren(item->child(i));
+        QtHelpers::ShowAllItems(ui->treeWidget->topLevelItem(i));
 }

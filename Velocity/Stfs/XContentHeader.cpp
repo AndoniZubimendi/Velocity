@@ -1,10 +1,10 @@
-#include "StfsMetaData.h"
+#include "XContentHeader.h"
 #include <iostream>
 #include <sstream>
 
 #include <QString>
 
-StfsMetaData::StfsMetaData(FileIO *io, DWORD flags) : installerType((InstallerType)0), flags(flags)
+XContentHeader::XContentHeader(FileIO *io, DWORD flags) : installerType((InstallerType)0), flags(flags)
 {
 	// set the io
 	this->io = io;
@@ -13,7 +13,7 @@ StfsMetaData::StfsMetaData(FileIO *io, DWORD flags) : installerType((InstallerTy
         readMetadata();
 }
 
-void StfsMetaData::readMetadata()
+void XContentHeader::readMetadata()
 {
     std::stringstream except;
 
@@ -29,7 +29,7 @@ void StfsMetaData::readMetadata()
             io->readBytes(packageSignature, 0x100);
         else
         {
-            except << "STFS: Content signature type 0x" << std::hex << (DWORD)magic << " is invalid.\n";
+            except << "XContentHeader: Content signature type 0x" << std::hex << (DWORD)magic << " is invalid.\n";
             throw QString::fromStdString(except.str());
         }
 
@@ -57,8 +57,8 @@ void StfsMetaData::readMetadata()
                 case 0xB000:
                     break;
                 default:
-                    except << "STFS: Invalid license type at index " << i << ".\n";
-                    throw QString::fromStdString(except.str());
+                    except << "XContentHeader: Invalid license type at index " << i << ".\n";
+                    throw except.str();
             }
         }
 
@@ -85,11 +85,20 @@ void StfsMetaData::readMetadata()
         io->readBytes(consoleID, 5);
         io->readBytes(profileID, 8);
 
+        // read the file system type
+        io->setPosition(0x3A9);
+        fileSystem = (FileSystem)io->readDword();
+        if (fileSystem > 1)
+            throw string("XContentHeader: Invalid file system. Only STFS and SVOD are supported.\n");
+
         // read volume descriptor
-        ReadVolumeDescriptorEx(&volumeDescriptor, io, 0x379);
+        if (fileSystem == FileSystemSTFS)
+            ReadStfsVolumeDescriptorEx(&stfsVolumeDescriptor, io, 0x379);
+        else if (fileSystem == FileSystemSVOD)
+            ReadSvodVolumeDescriptorEx(&svodVolumeDescriptor, io);
 
         dataFileCount = io->readDword();
-        dataFileCombinedSize = io->readDword();
+        dataFileCombinedSize = io->readUInt64();
 
         // read the avatar metadata if needed
         if (contentType == AvatarItem)
@@ -106,7 +115,7 @@ void StfsMetaData::readMetadata()
             skeletonVersion = (SkeletonVersion)io->readByte();
 
             if (skeletonVersion < 1 || skeletonVersion > 3)
-                throw QString("STFS: Invalid skeleton version.");
+                throw string("XContentHeader: Invalid skeleton version.");
         }
         else if (contentType == Video) // there may be other content types with this metadata
         {
@@ -190,12 +199,12 @@ void StfsMetaData::readMetadata()
             case None:
                 break;
             default:
-                throw QString("STFS: Invalid Installer Type value.");
+                throw string("XContentHeader: Invalid Installer Type value.");
         }
 
     #ifdef DEBUG
         if(metaDataVersion != 2)
-            throw QString("STFS: Metadata version is not 2.\n");
+            throw string("XContentHeader: Metadata version is not 2.\n");
     #endif
     }
     else
@@ -203,7 +212,7 @@ void StfsMetaData::readMetadata()
         ReadCertificateEx(&certificate, io, 0);
         io->readBytes(headerHash, 0x14);
 
-        ReadVolumeDescriptorEx(&volumeDescriptor, io, 0x244);
+        ReadStfsVolumeDescriptorEx(&stfsVolumeDescriptor, io, 0x244);
 
         // *skip missing int*
         io->setPosition(0x26C);
@@ -216,15 +225,45 @@ void StfsMetaData::readMetadata()
     }
 }
 
-void StfsMetaData::WriteCertificate()
+void XContentHeader::WriteCertificate()
 {
     if (magic != CON && (flags & MetadataIsPEC) == 0)
-        throw QString("STFS: Error writing certificate. Package is strong signed and therefore doesn't have a certificate.\n");
+        throw string("XContentHeader: Error writing certificate. Package is strong signed and therefore doesn't have a certificate.\n");
 
     WriteCertificateEx(&certificate, io, (flags & MetadataIsPEC) ? 0 : 4);
 }
 
-void StfsMetaData::WriteMetaData()
+void XContentHeader::FixHeaderHash()
+{
+    DWORD headerStart = ((flags & MetadataIsPEC) ? 0x23C : 0x344);
+
+    // calculate header size / first hash table address
+    DWORD calculated = ((headerSize + 0xFFF) & 0xFFFFF000);
+    io->setPosition(0, ios_base::end);
+    calculated = (io->getPosition() < calculated) ? (DWORD)io->getPosition() : calculated;
+    DWORD realHeaderSize = calculated - headerStart;
+
+    BYTE *data = new BYTE[realHeaderSize];
+
+    // seek to the position
+    io->setPosition(headerStart);
+    io->readBytes(data, realHeaderSize);
+
+    // hash the data
+    Botan::SHA_160 sha1;
+    sha1.clear();
+    sha1.update(data, realHeaderSize);
+    sha1.final(headerHash);
+
+    delete[] data;
+
+    // write the new hash to the file
+    io->setPosition(((flags & MetadataIsPEC) ? 0x228 : 0x32C));
+    io->write(headerHash, 0x14);
+    io->flush();
+}
+
+void XContentHeader::WriteMetaData()
 {
     // seek to the begining of the file
     io->setPosition(0);
@@ -241,7 +280,7 @@ void StfsMetaData::WriteMetaData()
         else
         {
             std::stringstream except;
-            except << "STFS: Content signature type 0x" << std::hex << (DWORD)magic << " is invalid.\n";
+            except << "XContentHeader: Content signature type 0x" << std::hex << (DWORD)magic << " is invalid.\n";
             throw QString::fromStdString(except.str());
         }
 
@@ -380,7 +419,7 @@ void StfsMetaData::WriteMetaData()
         WriteCertificateEx(&certificate, io, 0);
         io->write(headerHash, 0x14);
 
-        WriteVolumeDescriptorEx(&volumeDescriptor, io, 0x244);
+        WriteStfsVolumeDescriptorEx(&stfsVolumeDescriptor, io, 0x244);
 
         // *skip missing int*
         io->setPosition(0x26C);
@@ -391,12 +430,158 @@ void StfsMetaData::WriteMetaData()
     io->flush();
 }
 
-void StfsMetaData::WriteVolumeDescriptor()
+void XContentHeader::WriteVolumeDescriptor()
 {
-    WriteVolumeDescriptorEx(&volumeDescriptor, io, (flags & MetadataIsPEC) ? 0x244 : 0x379);
+    if (fileSystem == FileSystemSTFS)
+        WriteStfsVolumeDescriptorEx(&stfsVolumeDescriptor, io, (flags & MetadataIsPEC) ? 0x244 : 0x379);
+    else if (fileSystem == FileSystemSVOD)
+        WriteSvodVolumeDescriptorEx(&svodVolumeDescriptor, io);
 }
 
-StfsMetaData::~StfsMetaData()
+void XContentHeader::ResignHeader(string kvPath)
+{
+    FileIO kvIo(kvPath);
+    kvIo.setPosition(0, ios_base::end);
+
+    DWORD adder = 0;
+    if (kvIo.getPosition() == 0x4000)
+        adder = 0x10;
+
+    DWORD headerStart, size, hashLoc, toSignLoc, consoleIDLoc;
+
+    // set the headerStart
+    if (flags & MetadataIsPEC)
+    {
+        headerStart = 0x23C;
+        hashLoc = 0x228;
+        size = 0xDC4;
+        toSignLoc = 0x23C;
+        consoleIDLoc = 0x275;
+    }
+    else
+    {
+        headerStart = 0x344;
+        hashLoc = 0x32C;
+        size = 0x118;
+        toSignLoc = 0x22C;
+        consoleIDLoc = 0x36C;
+    }
+
+    // calculate header size / first hash table address
+    DWORD calculated = ((headerSize + 0xFFF) & 0xFFFFF000);
+    io->setPosition(0, ios_base::end);
+    calculated = (io->getPosition() < calculated) ? (DWORD)io->getPosition() : calculated;
+    DWORD realHeaderSize = calculated - headerStart;
+
+    // read the certificate
+    kvIo.setPosition(0x9B8 + adder);
+    certificate.publicKeyCertificateSize = kvIo.readWord();
+    kvIo.readBytes(certificate.ownerConsoleID, 5);
+
+    char tempPartNum[0x15];
+    tempPartNum[0x14] = 0;
+    kvIo.readBytes((BYTE*)tempPartNum, 0x14);
+    certificate.ownerConsolePartNumber = QString::fromLatin1(tempPartNum);
+
+    certificate.ownerConsoleType = (ConsoleType)kvIo.readByte();
+
+    char tempGenDate[9] = {0};
+    kvIo.readBytes((BYTE*)tempGenDate, 8);
+    certificate.dateGeneration = QString::fromLatin1(tempGenDate);
+
+    certificate.publicExponent = kvIo.readDword();
+    kvIo.readBytes(certificate.publicModulus, 0x80);
+    kvIo.readBytes(certificate.certificateSignature, 0x100);
+
+    // read the keys for signing
+    BYTE nData[0x80];
+    BYTE pData[0x40];
+    BYTE qData[0x40];
+
+    kvIo.setPosition(0x298 + adder);
+    kvIo.readBytes(nData, 0x80);
+    kvIo.readBytes(pData, 0x40);
+    kvIo.readBytes(qData, 0x40);
+
+    // 8 byte swap all necessary keys
+    XeCryptBnQw_SwapDwQwLeBe(nData, 0x80);
+    XeCryptBnQw_SwapDwQwLeBe(pData, 0x40);
+    XeCryptBnQw_SwapDwQwLeBe(qData, 0x40);
+
+    // get the keys ready for signing
+    Botan::BigInt n = Botan::BigInt::decode(nData, 0x80);
+    Botan::BigInt p = Botan::BigInt::decode(pData, 0x40);
+    Botan::BigInt q = Botan::BigInt::decode(qData, 0x40);
+
+    Botan::AutoSeeded_RNG rng;
+    Botan::RSA_PrivateKey pkey(rng, p, q, 0x10001, 0, n);
+
+    // write the console id
+    io->setPosition(consoleIDLoc);
+    io->write(certificate.ownerConsoleID, 5);
+
+    // read the data to hash
+    BYTE *buffer = new BYTE[realHeaderSize];
+    io->setPosition(headerStart);
+    io->readBytes(buffer, realHeaderSize);
+
+    // hash the header
+    Botan::SHA_160 sha1;
+    sha1.clear();
+    sha1.update(buffer, realHeaderSize);
+    sha1.final(headerHash);
+
+    delete[] buffer;
+
+    io->setPosition(hashLoc);
+    io->write(headerHash, 0x14);
+
+    io->setPosition(toSignLoc);
+
+    BYTE *dataToSign = new BYTE[size];
+    io->readBytes(dataToSign, size);
+
+#if defined __unix | defined __APPLE__
+    Botan::PK_Signer signer(pkey, "EMSA3(SHA-160)");
+#elif _WIN32
+    Botan::PK_Signer signer(pkey, Botan::get_emsa("EMSA3(SHA-160)"));
+#endif
+
+    Botan::SecureVector<Botan::byte> signature = signer.sign_message((unsigned char*)dataToSign, size, rng);
+
+    // 8 byte swap the new signature
+    XeCryptBnQw_SwapDwQwLeBe(signature, 0x80);
+
+    // reverse the new signature every 8 bytes
+    for (int i = 0; i < 0x10; i++)
+        FileIO::swapEndian(&signature[i * 8], 1, 8);
+
+    // write the certficate
+    memcpy(certificate.signature, signature, 0x80);
+    WriteCertificate();
+
+    delete[] dataToSign;
+}
+
+void XContentHeader::XeCryptBnQw_SwapDwQwLeBe(BYTE *data, DWORD length)
+{
+    if (length % 8 != 0)
+        throw string("STFS: length is not divisible by 8.\n");
+
+    for (DWORD i = 0; i < length / 2; i += 8)
+    {
+        BYTE temp[8];
+        memcpy(temp, &data[i], 8);
+
+        BYTE temp2[8];
+        memcpy(temp2, &data[length - i - 8], 8);
+
+        memcpy(&data[i], temp2, 8);
+        memcpy(&data[length - i - 8], temp, 8);
+    }
+}
+
+XContentHeader::~XContentHeader()
 {
     if ((flags & MetadataIsPEC) == 0 && (flags & MetadataDontFreeThumbnails) == 0)
     {

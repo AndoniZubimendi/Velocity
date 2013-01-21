@@ -316,7 +316,8 @@ void GPDBase::WriteImageEntry(ImageEntry image)
 
 void GPDBase::Close()
 {
-    io->close();
+    if (io)
+        io->close();
 }
 
 void GPDBase::Clean()

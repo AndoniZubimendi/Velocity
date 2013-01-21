@@ -219,3 +219,122 @@ void QtHelpers::GenAdjustWidgetAppearanceToOS(QWidget *rootWidget)
             }
         }
 }
+
+
+void QtHelpers::SearchTreeWidget(QTreeWidget *widget, QLineEdit *searchWidget, QString searchString)
+{
+    QList<QTreeWidgetItem*> itemsMatched = widget->findItems(searchWidget->text(), Qt::MatchContains | Qt::MatchRecursive);
+
+    for (int i = 0; i < widget->topLevelItemCount(); i++)
+        QtHelpers::HideAllItems(widget->topLevelItem(i));
+
+    if (itemsMatched.count() == 0 || searchString == "")
+    {
+        searchWidget->setStyleSheet("color: rgb(255, 1, 1);");
+        for (int i = 0; i < widget->topLevelItemCount(); i++)
+        {
+            QtHelpers::ShowAllItems(widget->topLevelItem(i));
+            QtHelpers::CollapseAllChildren(widget->topLevelItem(i));
+        }
+        return;
+    }
+
+    searchWidget->setStyleSheet("");
+    // add all the matched ones to the list
+    for (int i = 0; i < itemsMatched.count(); i++)
+    {
+        // show all the item's parents
+        QTreeWidgetItem *parent = itemsMatched.at(i)->parent();
+        while (parent != NULL)
+        {
+            widget->setItemHidden(parent, false);
+            parent->setExpanded(true);
+            parent = parent->parent();
+        }
+
+        // show the item itself
+        widget->setItemHidden(itemsMatched.at(i), false);
+    }
+}
+
+void QtHelpers::HideAllItems(QTreeWidgetItem *parent)
+{
+    for (int i = 0; i < parent->childCount(); i++)
+    {
+        if (parent->child(i)->childCount() != 0)
+            QtHelpers::HideAllItems(parent->child(i));
+        parent->child(i)->setHidden(true);
+    }
+    parent->setHidden(true);
+}
+
+void QtHelpers::ShowAllItems(QTreeWidgetItem *parent)
+{
+    for (int i = 0; i < parent->childCount(); i++)
+    {
+        if (parent->child(i)->childCount() != 0)
+            QtHelpers::HideAllItems(parent->child(i));
+        parent->child(i)->setHidden(false);
+    }
+    parent->setHidden(false);
+}
+
+void QtHelpers::CollapseAllChildren(QTreeWidgetItem *item)
+{
+    item->setExpanded(false);
+
+    // collapse all children
+    for (int i = 0; i < item->childCount(); i++)
+        QtHelpers::CollapseAllChildren(item->child(i));
+}
+
+void QtHelpers::GetFileIcon(DWORD magic, QString fileName, QIcon &icon, QTreeWidgetItem &item)
+{
+    item.setData(1, Qt::UserRole, "");
+
+    switch (magic)
+    {
+        case CON:
+        case LIVE:
+        case PIRS:
+            icon = QIcon(":/Images/PackageFileIcon.png");
+            item.setData(1, Qt::UserRole, "STFS");
+            break;
+        case 0x58444246:    // XDBF
+            icon = QIcon(":/Images/GpdFileIcon.png");
+            item.setData(1, Qt::UserRole, "XDBF");
+            break;
+        case 0x53545242:    // STRB
+            icon = QIcon(":/Images/StrbFileIcon.png");
+            item.setData(1, Qt::UserRole, "STRB");
+            break;
+        case 0x58455832:    // XEX2
+            icon = QIcon(":/Images/XEXFileIcon.png");
+            item.setData(1, Qt::UserRole, "XEX");
+            break;
+        case 0x89504E47:    // ‰PNG
+            icon = QIcon(":/Images/ImageFileIcon.png");
+            item.setData(1, Qt::UserRole, "Image");
+            break;
+        default:
+            int index = fileName.lastIndexOf(".");
+            QString extension = "";
+            if (index != -1)
+                extension = fileName.mid(index);
+
+            if (fileName == "Account")
+                icon = QIcon(":/Images/AccountFileIcon.png");
+            else if (fileName == "PEC")
+            {
+                icon = QIcon(":/Images/PecFileIcon.png");
+                item.setData(1, Qt::UserRole, "PEC");
+            }
+            else if (extension == ".jpg" || extension == ".jpeg")
+            {
+                icon = QIcon(":/Images/ImageFileIcon.png");
+                item.setData(1, Qt::UserRole, "Image");
+            }
+            else
+                icon = QIcon(":/Images/DefaultFileIcon.png");
+    }
+}

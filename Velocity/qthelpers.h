@@ -60,6 +60,15 @@ public:
 
     static void GenAdjustWidgetAppearanceToOS(QWidget *rootWidget);
 
+    static void SearchTreeWidget(QTreeWidget *widget, QLineEdit *searchWidget, QString searchString);
+
+    static void HideAllItems(QTreeWidgetItem *parent);
+
+    static void ShowAllItems(QTreeWidgetItem *parent);
+
+    static void CollapseAllChildren(QTreeWidgetItem *item);
+
+    static void GetFileIcon(DWORD magic, QString fileName, QIcon &icon, QTreeWidgetItem &item);
 };
 
 #endif // QTHELPERS_H

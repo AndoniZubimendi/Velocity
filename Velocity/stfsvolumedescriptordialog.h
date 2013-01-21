@@ -15,13 +15,13 @@ namespace Ui {
 class VolumeDescriptorDialog;
 }
 
-class VolumeDescriptorDialog : public QDialog
+class StfsVolumeDescriptorDialog : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit VolumeDescriptorDialog(QStatusBar *statusBar, VolumeDescriptor *desc, QWidget *parent = 0);
-    ~VolumeDescriptorDialog();
+    explicit StfsVolumeDescriptorDialog(QStatusBar *statusBar, StfsVolumeDescriptor *desc, QWidget *parent = 0);
+    ~StfsVolumeDescriptorDialog();
     
 private slots:
     void on_pushButton_2_clicked();
@@ -32,7 +32,7 @@ private slots:
 
 private:
     Ui::VolumeDescriptorDialog *ui;
-    VolumeDescriptor *desc;
+    StfsVolumeDescriptor *desc;
     QStatusBar *statusBar;
 
     QComboBox *cmbxHashTable;

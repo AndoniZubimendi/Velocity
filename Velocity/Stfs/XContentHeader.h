@@ -8,7 +8,17 @@
 #include "winnames.h"
 #include <iostream>
 
-enum StfsMetadataFlags
+#include <botan/botan.h>
+#include <botan/pubkey.h>
+#include <botan/rsa.h>
+#include <botan/emsa.h>
+#include <botan/sha160.h>
+#include <botan/emsa3.h>
+#include <botan/look_pk.h>
+
+using std::string;
+
+enum XContentFlags
 {
     MetadataIsPEC = 1,
     MetadataSkipRead = 2,
@@ -25,11 +35,23 @@ enum OnlineContentResumeState
     NewFolderResumeAttemptSpecific = 0x666F6C40
 };
 
-class StfsMetaData
+enum FileSystem
+{
+    FileSystemSTFS = 0,
+    FileSystemSVOD
+};
+
+class XContentHeader
 {
 public:
 	// Description: read in all of the metadata for the package
-    StfsMetaData(FileIO *io, DWORD flags = 0);
+    XContentHeader(FileIO *io, DWORD flags = 0);
+
+    // fix the signature in the header
+    void ResignHeader(string kvPath);
+
+    // fix the sha1 hash of the header data
+    void FixHeaderHash();
 
     // Description: write the console certificate
     void WriteCertificate();
@@ -39,7 +61,7 @@ public:
 
     // Description: write all of the metadata
     void WriteMetaData();
-	~StfsMetaData();
+	~XContentHeader();
 
     Magic magic;
 
@@ -67,7 +89,9 @@ public:
 	BYTE consoleID[5];
     BYTE profileID[8];
 
-	VolumeDescriptor volumeDescriptor;
+    StfsVolumeDescriptor stfsVolumeDescriptor;
+    SvodVolumeDescriptor svodVolumeDescriptor;
+    FileSystem fileSystem;
 
     // only in PEC, and im not sure exactly what this byte is but it needs to always be set to 1
     bool enabled;
@@ -119,5 +143,8 @@ private:
     DWORD flags;
 
     void readMetadata();
+
+    // Description: swap bytes by chunks of 8
+    void XeCryptBnQw_SwapDwQwLeBe(BYTE *data, DWORD length);
 };
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../FileIO.h"
-#include "StfsMetaData.h"
+#include "XContentHeader.h"
 
 #include <QVector>
 #include <QString>
@@ -56,7 +56,7 @@ enum StfsPackageFlags
 class StfsPackage
 {
 public:
-    StfsMetaData *metaData;
+    XContentHeader *metaData;
 
     // Description: initialize a stfs package
     StfsPackage(const QString &packagePath, DWORD flags = 0);
@@ -75,6 +75,9 @@ public:
 
     // Description: get the first 4 bytes of a file
     DWORD GetFileMagic(const QString &pathInPackage);
+
+    // Description: get the first 4 bytes of a file
+    DWORD GetFileMagic(FileEntry entry);
 
     // Description: check if the file exists
     bool FileExists(const QString &pathInPackage);
@@ -226,9 +229,6 @@ private:
 
     // Description: update the entry at the given path
     void UpdateEntry(const QString &pathInPackage, FileEntry entry);
-
-    // Description: swap bytes by chunks of 8
-    void XeCryptBnQw_SwapDwQwLeBe(BYTE *data, DWORD length);
 
     // Description: get the number of bytes to skip over the hash table
     DWORD GetHashTableSkipSize(DWORD tableAddress);

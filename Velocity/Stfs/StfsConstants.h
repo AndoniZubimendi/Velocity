@@ -57,13 +57,13 @@ enum InstallerType
 
 enum ContentType
 {
-	App = 0x7000,
 	ArcadeGame = 0xD0000,
     AvatarAssetPack = 0x8000,
 	AvatarItem = 0x9000,
 	CacheFile = 0x40000,
 	CommunityGame = 0x2000000,
 	GameDemo = 0x80000,
+    GameOnDemand = 0x7000,
 	GamerPicture = 0x20000,
 	GamerTitle = 0xA0000,
 	GameTrailer = 0xC0000,
@@ -96,6 +96,13 @@ enum BlockStatusLevelZero
 	PreviouslyAllocated = 0x40,
 	Allocated = 0x80,
 	NewlyAllocated = 0xC0
+};
+
+// this is from eaton
+enum SVODFeatures
+{
+    EnhancedGDFLayout = 0x40,
+    houldBeZeroForDownLevelClients = 0x80
 };
 
 struct Version

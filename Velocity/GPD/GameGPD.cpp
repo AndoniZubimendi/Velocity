@@ -4,9 +4,10 @@
 
 #include "../FileIO.h"
 
-GameGPD::GameGPD(const QString &filePath) : GPDBase(filePath)
+GameGPD::GameGPD(const QString &filePath) : GPDBase(filePath), filePath(filePath)
 {
 	init();
+    StopWriting();
 }
 
 GameGPD::GameGPD(FileIO *io) : GPDBase(io)
@@ -16,8 +17,10 @@ GameGPD::GameGPD(FileIO *io) : GPDBase(io)
 
 void GameGPD::CleanGPD()
 {
+    StartWriting();
 	xdbf->Clean();
     io = xdbf->io;
+    StopWriting();
 }
 
 AchievementEntry GameGPD::readAchievementEntry(XDBFEntry entry)
@@ -217,8 +220,22 @@ void GameGPD::init()
 			gameName = strings.at(i);
 }
 
+void GameGPD::StartWriting()
+{
+    io = new FileIO(filePath.toStdString());
+    xdbf->io = io;
+}
+
+void GameGPD::StopWriting()
+{
+    io->close();
+    delete io;
+    io = NULL;
+    xdbf->io = NULL;
+}
+
 GameGPD::~GameGPD(void)
 {
-    if (!ioPassedIn)
+    if (!ioPassedIn && io)
        io->close();
 }

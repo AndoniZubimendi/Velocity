@@ -1,7 +1,7 @@
-#include "volumedescriptordialog.h"
+#include "stfsvolumedescriptordialog.h"
 #include "ui_volumedescriptordialog.h"
 
-VolumeDescriptorDialog::VolumeDescriptorDialog(QStatusBar *statusBar, VolumeDescriptor *desc, QWidget *parent) :
+StfsVolumeDescriptorDialog::StfsVolumeDescriptorDialog(QStatusBar *statusBar, StfsVolumeDescriptor *desc, QWidget *parent) :
     QDialog(parent), ui(new Ui::VolumeDescriptorDialog), desc(desc), statusBar(statusBar)
 {
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -45,19 +45,19 @@ VolumeDescriptorDialog::VolumeDescriptorDialog(QStatusBar *statusBar, VolumeDesc
     statusBar->showMessage("Volume Descriptor loaded successfully", 3000);
 }
 
-VolumeDescriptorDialog::~VolumeDescriptorDialog()
+StfsVolumeDescriptorDialog::~StfsVolumeDescriptorDialog()
 {
     delete cmbxHashTable;
     delete cmbxPackageType;
     delete ui;
 }
 
-void VolumeDescriptorDialog::on_pushButton_2_clicked()
+void StfsVolumeDescriptorDialog::on_pushButton_2_clicked()
 {
     this->close();
 }
 
-void VolumeDescriptorDialog::packageTypeChanged(int index)
+void StfsVolumeDescriptorDialog::packageTypeChanged(int index)
 {
     if (index == 0)
     {
@@ -68,7 +68,7 @@ void VolumeDescriptorDialog::packageTypeChanged(int index)
         cmbxHashTable->setEnabled(true);
 }
 
-void VolumeDescriptorDialog::on_pushButton_clicked()
+void StfsVolumeDescriptorDialog::on_pushButton_clicked()
 {
     // verfiy everything
     if (!QtHelpers::VerifyHexString(ui->tableWidget->item(0, 0)->text()))
