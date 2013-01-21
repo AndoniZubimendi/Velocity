@@ -42,39 +42,38 @@ class PackageViewer;
 
 class PackageViewer : public QDialog
 {
-    Q_OBJECT
-    
+Q_OBJECT
+
 public:
-    explicit PackageViewer(QStatusBar *statusBar, StfsPackage *package, QList<QAction*> gpdActions, QList<QAction*> gameActions, QWidget *parent = NULL, bool disposePackage = true);
-    ~PackageViewer();
-    
+explicit PackageViewer(QStatusBar *statusBar, StfsPackage *package, QList<QAction*> gpdActions, QList<QAction*> gameActions, QWidget *parent = NULL, bool disposePackage = true);
+~PackageViewer();
+
 private slots:
-    void on_btnFix_clicked();
+void on_btnFix_clicked();
 
-    void on_btnViewAll_clicked();
+void on_btnViewAll_clicked();
 
-    void showRemoveContextMenu(QPoint point);
+void showRemoveContextMenu(QPoint point);
 
-    void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
+void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
-    void on_btnStfsTools_clicked();
+void on_btnStfsTools_clicked();
 
-    void on_btnShowAll_clicked();
+void on_btnShowAll_clicked();
 
-    void showSaveImageContextMenu(QPoint point);
+void showSaveImageContextMenu(QPoint point);
 
-    void on_txtSearch_textChanged(const QString &);
+void on_txtSearch_textChanged(const QString &);
 
-    void onOpenInSelected(QAction *action);
+void onOpenInSelected(QAction *action);
 
-    void aboutToShow();
+void aboutToShow();
 
 private:
-    Ui::PackageViewer *ui;
-    void PopulateTreeWidget(const FileListing *entry, QTreeWidgetItem *parent = NULL);
-    void GetPackagePath(QTreeWidgetItem *item, QString *out, bool folderOnly = false);
+Ui::PackageViewer *ui;
+void PopulateTreeWidget(const FileListing *entry, QTreeWidgetItem *parent = NULL);
+void GetPackagePath(QTreeWidgetItem *item, QString *out, bool folderOnly = false);
     void SetIcon(const QString &name, const FileEntry *entry, QTreeWidgetItem *item);
-
     StfsPackage *package;
     bool disposePackage;
     FileListing listing;

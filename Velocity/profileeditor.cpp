@@ -1561,6 +1561,8 @@ void ProfileEditor::on_dteAchTimestamp_dateTimeChanged(const QDateTime &date)
 
     games.at(ui->gamesList->currentIndex().row()).gpd->StopWriting();
 
+    games.at(ui->gamesList->currentIndex().row()).gpd->StopWriting();
+
     statusBar->showMessage("Updated " + QString::fromStdWString(entry->name), 3000);
 }
 
