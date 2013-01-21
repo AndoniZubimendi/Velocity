@@ -165,7 +165,7 @@ pip-log.txt
 
 # Qt Files #
 ############
-*.pro.user
+*.pro.user*
 moc_*.h
 moc_*.cpp
 ui_*.h
