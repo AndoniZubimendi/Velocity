@@ -100,8 +100,8 @@ void GameGPD::CreateAchievement(AchievementEntry *entry, BYTE *thumbnail, DWORD 
 	entry->initialLength = entryLen;
 
     // get the next id for the achievement
-    int max = 0;
-    for (DWORD i = 0; i < achievements.size(); i++)
+    DWORD max = 0;
+    for (int i = 0; i < achievements.size(); i++)
         if (achievements.at(i).achievementID > max)
             max = achievements.at(i).achievementID;
     entry->achievementID = max + 1;

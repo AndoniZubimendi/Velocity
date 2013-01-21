@@ -1,21 +1,24 @@
 #include "gpddownloader.h"
 
+#include <QNetworkRequest>
+#include <QNetworkReply>
+
+
 GPDDownloader::GPDDownloader(TitleEntry entry, int index, bool hasAwards, QObject * /* parent */ ) : entry(entry), hasAwards(hasAwards), indexIn(index)
 {
     gpdDirectory = "/gameadder/";
     gpdWritten = false;
 
-    http = new QHttp(this);
-    http->setHost("velocity.expetelek.com");
+    manager = new QNetworkAccessManager(this);
 
-    connect(http, SIGNAL(done(bool)), this, SLOT(onDone(bool)));
-    connect(http, SIGNAL(requestFinished(int, bool)), this, SLOT(onRequestFinished(int, bool)));
+    connect(manager, SIGNAL(done(bool)), this, SLOT(onDone(bool)));
+    connect(manager, SIGNAL(requestFinished(QNetworkReply *)), this, SLOT(onRequestFinished(int, bool)));
 }
 
 void GPDDownloader::BeginDownload()
 {
     QString url = gpdDirectory + "game/" + QString::number(entry.titleID, 16).toUpper() + ".gpd";
-    http->get(url);
+    manager->get(QNetworkRequest(QUrl(url)));
 }
 
 int GPDDownloader::index()
@@ -23,11 +26,11 @@ int GPDDownloader::index()
     return indexIn;
 }
 
-void GPDDownloader::onRequestFinished(int /* id */, bool error)
+void GPDDownloader::onRequestFinished(QNetworkReply *reply)
 {
-    if (error)
-        qDebug() << http->errorString();
-    else if (http->bytesAvailable() < 1)
+    if (reply->error() != QNetworkReply::NoError)
+        qDebug() << reply->errorString();
+    else if (reply->bytesAvailable() < 1)
         return;
 
     QString tempPath = QDir::tempPath() + "/" + QUuid::createUuid().toString().replace("{", "").replace("}", "").replace("-", "");
@@ -41,7 +44,7 @@ void GPDDownloader::onRequestFinished(int /* id */, bool error)
         v1File.open(QFile::Truncate | QFile::WriteOnly);
 
         // write the gpd to disk
-        v1File.write(http->readAll());
+        v1File.write(reply->readAll());
 
         // clean up
         v1File.flush();
@@ -58,7 +61,7 @@ void GPDDownloader::onRequestFinished(int /* id */, bool error)
         v1File.open(QFile::Truncate | QFile::WriteOnly);
 
         // write the gpd to disk
-        v1File.write(http->readAll());
+        v1File.write(reply->readAll());
 
         // clean up
         v1File.flush();
@@ -68,7 +71,7 @@ void GPDDownloader::onRequestFinished(int /* id */, bool error)
     if (hasAwards)
     {
         hasAwards = false;
-        http->get(gpdDirectory + "award/" + QString::number(entry.titleID, 16).toUpper() + ".gpd");
+        manager->get(QNetworkRequest(QUrl(gpdDirectory + "award/" + QString::number(entry.titleID, 16).toUpper() + ".gpd")));
     }
 }
 

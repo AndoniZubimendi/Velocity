@@ -3,9 +3,8 @@
 
 // qt
 #include <QObject>
-#include <QHttp>
+#include <QNetworkAccessManager>
 #include <QUuid>
-#include <QUrl>
 #include <QDir>
 
 // other
@@ -17,6 +16,7 @@ class AvatarAssetDownloader : public QObject
     Q_OBJECT
 public:
     explicit AvatarAssetDownloader(QString titleID, QString guid, QObject *parent = 0);
+    ~AvatarAssetDownloader();
     QString GetV1TempPath();
     QString GetV2TempPath();
     QString GetGUID();
@@ -28,9 +28,9 @@ signals:
 
 public slots:
     void onDone(bool);
-    void onRequestFinished(int, bool);
+    void onRequestFinished(QNetworkReply *http);
 private:
-    QHttp *http;
+    QNetworkAccessManager *manager;
 
     QString titleID;
     QString guid;

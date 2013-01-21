@@ -4,9 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network xml
+QT       += core gui network xml widgets
 
-mac | win32 {
+win32 {
     QT += phonon
 }
 
@@ -26,7 +26,10 @@ win32 {
 mac {
     ICON = velocity.icns
     INCLUDEPATH += "/usr/local/include/botan-1.10"
-    LIBS += "/usr/local/lib/libbotan-1.10.a"
+    INCLUDEPATH += "/opt/local/include/botan-1.10"
+    LIBS += "-lssl"
+    LIBS += "-lcrypto"
+    LIBS += "/opt/local/lib/libbotan-1.10.a"
 }
 
 unix:!mac {

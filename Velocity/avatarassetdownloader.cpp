@@ -1,19 +1,30 @@
 #include "AvatarAssetDownloader.h"
 
-AvatarAssetDownloader::AvatarAssetDownloader(QString titleID, QString guid, QObject *parent) :
-    QObject(parent), titleID(titleID), guid(guid), v1Done(false), v2Done(false), v1TempPath(QString("")), v2TempPath(QString(""))
-{
-    http = new QHttp(this);
-    http->setHost("download.xboxlive.com");
+#include <QUrl>
+#include <QNetworkRequest>
+#include <QNetworkReply>
 
-    connect(http, SIGNAL(done(bool)), this, SLOT(onDone(bool)));
-    connect(http, SIGNAL(requestFinished(int,bool)), this, SLOT(onRequestFinished(int,bool)));
+AvatarAssetDownloader::AvatarAssetDownloader(QString titleID, QString guid, QObject *parent) :
+    QObject(parent), titleID(titleID), guid(guid), v1TempPath(QString("")), v2TempPath(QString("")), v1Done(false), v2Done(false)
+{
+    manager = new QNetworkAccessManager(this);
+
+    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(requestFinished));
+
+    //http->setHost("download.xboxlive.com");
+
+    //connect(http, SIGNAL(done(bool)), this, SLOT(onDone(bool)));
+    connect(manager, SIGNAL(requestFinished(int,bool)), this, SLOT(onRequestFinished(int,bool)));
+}
+
+AvatarAssetDownloader::~AvatarAssetDownloader()
+{
+    delete manager;
 }
 
 void AvatarAssetDownloader::BeginDownload()
 {
-    http->get("http://download.xboxlive.com/content/" + titleID + "/avataritems/" + guid + ".bin");
-    idToSkip = http->currentId();
+    manager->get(QNetworkRequest(QUrl("http://download.xboxlive.com/content/" + titleID + "/avataritems/" + guid + ".bin")));
 }
 
 QString AvatarAssetDownloader::GetV1TempPath()
@@ -36,13 +47,13 @@ QString AvatarAssetDownloader::GetTitleID()
     return titleID;
 }
 
-void AvatarAssetDownloader::onRequestFinished(int id, bool error)
+void AvatarAssetDownloader::onRequestFinished(QNetworkReply *reply)
 {
-    if (error || id == idToSkip)
+    if (reply->error()  != QNetworkReply::NoError)
         return;
 
     // verify that the file was downloaded
-    DWORD fileSize = http->bytesAvailable();
+    DWORD fileSize = reply->bytesAvailable();
 
     // all assets have a YTGR header that's 0x140 bytes
     if (fileSize < 0x140)
@@ -52,7 +63,7 @@ void AvatarAssetDownloader::onRequestFinished(int id, bool error)
             v1Done = true;
             v2Done = true;
 			v1TempPath = "";
-            http->get("http://download.xboxlive.com/content/" + titleID + "/avataritems/v2/" + guid + ".bin");
+            manager->get(QNetworkRequest(QUrl("http://download.xboxlive.com/content/" + titleID + "/avataritems/v2/" + guid + ".bin")));
         }
 		else
 			v2TempPath = "";
@@ -61,7 +72,7 @@ void AvatarAssetDownloader::onRequestFinished(int id, bool error)
 
     // read the crap away, we don't need it
     BYTE temp[0x140];
-    http->read((char*)temp, 0x140);
+    reply->read((char*)temp, 0x140);
 
     QString tempPath = QDir::tempPath() + "/" + QUuid::createUuid().toString().replace("{", "").replace("}", "").replace("-", "");
     if (!v1Done)
@@ -73,7 +84,7 @@ void AvatarAssetDownloader::onRequestFinished(int id, bool error)
     QFile v1File(tempPath);
     v1File.open(QFile::Truncate | QFile::WriteOnly);
     // write the STRB file to the local disk
-    v1File.write(http->readAll());
+    v1File.write(reply->readAll());
 
     // clean up
     v1File.flush();
@@ -85,7 +96,7 @@ void AvatarAssetDownloader::onRequestFinished(int id, bool error)
     if (!v2Done)
     {
         v2Done = true;
-        http->get("http://download.xboxlive.com/content/" + titleID + "/avataritems/v2/" + guid + ".bin");
+        manager->get(QNetworkRequest(QUrl("http://download.xboxlive.com/content/" + titleID + "/avataritems/v2/" + guid + ".bin")));
     }
     else
         emit FinishedDownloading();

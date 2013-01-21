@@ -1339,7 +1339,7 @@ void ProfileEditor::on_btnCreateAch_clicked()
         QPixmap::fromImage(thumbnail).save(&buffer, "PNG");
 
         // get the next available image id
-        int max = 0;
+        DWORD max = 0;
         for (int i = 0; i < game->achievements.size(); i++)
             if (max < game->achievements.at(i).imageID)
                 max = game->achievements.at(i).imageID;

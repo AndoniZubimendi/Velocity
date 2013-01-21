@@ -3,7 +3,7 @@
 
 // qt
 #include <QObject>
-#include <QHttp>
+#include <QNetworkAccessManager>
 #include <QUuid>
 #include <QUrl>
 #include <QDir>
@@ -27,10 +27,10 @@ signals:
 
 public slots:
     void onDone(bool);
-    void onRequestFinished(int, bool);
+    void onRequestFinished(QNetworkReply *reply);
 
 private:
-    QHttp *http;
+    QNetworkAccessManager *manager;
     QString gpdDirectory, titleID, awardGPD, gameGPD;
     TitleEntry entry;
     bool hasAwards, gpdWritten;
